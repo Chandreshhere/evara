@@ -75,6 +75,13 @@ export default function Hero() {
   // decoded — that way the fly-in animation never starts on top of an
   // image that is still loading and there is no sudden layout shift.
   useEffect(() => {
+    // Re-arm the boot lock on every mount. In dev StrictMode (and any
+    // unmount/remount), the previous mount's takeover useEffect cleanup
+    // calls ctx.revert(), which kills the pin and lets manifesto snap
+    // back to its pre-pin overlap (margin-top:-55vh). Without re-adding
+    // the class here, manifesto would flash inside the hero between the
+    // pin teardown and the next pin rebuild.
+    document.documentElement.classList.add('evara-loading');
     lockScroll();
 
     const tileSrcs = TILES.map((t) => t.src);
@@ -102,6 +109,7 @@ export default function Hero() {
     return () => {
       window.clearTimeout(failSafe);
       unlockScroll();
+      document.documentElement.classList.remove('evara-loading');
     };
   }, []);
 
@@ -264,6 +272,14 @@ export default function Hero() {
       // wait for. Then refresh so positions are picked up correctly.
       setupTakeover();
       ScrollTrigger.refresh();
+      // Boot lock from index.html clipped the doc to a single viewport so
+      // lower sections couldn't flash over the hero on reload. Wait one
+      // paint frame so the pin spacer is fully laid out (manifesto at its
+      // post-pin y, off-viewport) BEFORE we let it become visible — that
+      // way it can never paint at its pre-pin overlap position.
+      requestAnimationFrame(() => {
+        document.documentElement.classList.remove('evara-loading');
+      });
     }, section);
     return () => {
       ctx.revert();

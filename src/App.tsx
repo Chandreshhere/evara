@@ -21,6 +21,13 @@ if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
 }
 if (typeof window !== 'undefined') {
   window.scrollTo(0, 0);
+  // Also freeze scrolling at module-eval time. The Hero's lockScroll runs
+  // inside a useEffect, so without this there is a window between mount and
+  // effect during which a browser scroll-restore can briefly paint lower
+  // sections over the hero. Hero's unlockScroll on its takeover trigger
+  // clears these inline styles once it is ready.
+  document.documentElement.style.overflow = 'hidden';
+  document.body && (document.body.style.overflow = 'hidden');
 }
 
 export default function App() {

@@ -5,6 +5,36 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#F4EFE6" />
+    <style>
+      /* Boot-time clip: while .evara-loading is on <html>, clamp the
+         document to a single viewport and disable scrolling, so even if
+         the browser tries to restore a saved scroll position before our
+         JS locks take over, lower sections cannot paint over the hero.
+         Hero clears the class once it is ready. */
+      html.evara-loading,
+      html.evara-loading body {
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+      /* Manifesto is intentionally pulled up with margin-top:-55vh and
+         overlaps the hero by design, expecting the hero's pinned
+         ScrollTrigger spacer (added in JS after frames preload) to push
+         it down ~200vh. Until that pin is built, hide every non-hero
+         section so manifesto cannot flash into the hero on reload. Hero
+         clears .evara-loading right after the pin is wired up — by then
+         the sections are at their post-pin positions, off-viewport. */
+      html.evara-loading main > section:not(.hero) {
+        visibility: hidden !important;
+      }
+    </style>
+    <script>
+      // Run BEFORE the body parses so the browser never restores a saved
+      // scroll position on reload — that restore briefly paints lower
+      // sections over the hero before our React reset snaps us back.
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      document.documentElement.classList.add('evara-loading');
+      try { window.scrollTo(0, 0); } catch (e) {}
+    </script>
     <meta name="description" content="Evara — editorial wedding planning across timeless landscapes." />
     <title>Evara — Editorial Wedding Planning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
