@@ -253,7 +253,7 @@
   letter-spacing: -0.02em;
   margin: 0;
   font-weight: 400;
-  color: #1f2950;
+  color: #6a232c;
 }
 .swan-welcome-body {
   font-family: var(--font-display);
@@ -261,7 +261,7 @@
   font-size: clamp(1.25rem, 1.55vw, 1.6rem);
   line-height: 1.55;
   margin: 0;
-  color: #1f2950;
+  color: #6a232c;
   opacity: 0.82;
   letter-spacing: -0.005em;
 }
