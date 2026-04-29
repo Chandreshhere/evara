@@ -51,7 +51,7 @@ export default function FAQ() {
             <span className="faq-portrait-tag">N&deg;&nbsp;01 — Atelier</span>
             <div className="faq-portrait-frame">
               <img
-                src="/images/2.jpeg"
+                src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=900&q=80"
                 alt=""
                 loading="lazy"
               />

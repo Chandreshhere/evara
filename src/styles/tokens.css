@@ -15,31 +15,74 @@
 }
 
 :root {
-  /* Beige range */
+  /* ============================================================
+     EVARA — Brand tokens (per Brand Guidelines)
+     Primary navy #00223F + gold gradient (9A6100 → 885B16).
+     Cinzel Decorative for display, Montserrat for body.
+     ============================================================ */
+
+  /* Brand — primary */
+  --brand-navy: #00223f;
+  --brand-navy-deep: #001628;
+  --brand-navy-soft: #1a3354;
+
+  /* Brand — gold gradient (1 → 7 from the deck) */
+  --gold-1: #9a6100; /* deep */
+  --gold-2: #aa7220;
+  --gold-3: #ffdfa0; /* bright */
+  --gold-4: #efb252; /* light/champagne */
+  --gold-5: #b47923; /* mid */
+  --gold-6: #bb7f25;
+  --gold-7: #885b16; /* bronze */
+
+  /* Convenience aliases */
+  --gold: #b47923;
+  --gold-warm: #aa7220;
+  --gold-light: #efb252;
+  --gold-bright: #ffdfa0;
+  --gold-deep: #9a6100;
+  --gold-bronze: #885b16;
+  --gold-gradient: linear-gradient(
+    135deg,
+    #9a6100 0%,
+    #aa7220 18%,
+    #b47923 38%,
+    #efb252 58%,
+    #bb7f25 80%,
+    #885b16 100%
+  );
+
+  /* Paper / neutrals — kept so existing references continue to work,
+     remapped slightly so paper still reads warm against navy. */
   --bone: #f4efe6;
   --cream: #eae2d0;
   --sand: #d9cdb4;
-  --clay: #b89e7b;
+  --clay: #b47923; /* was warm sand — now mid gold for hairlines */
 
-  /* Ink */
-  --ink: #1f2a24;
-  --ink-soft: #3a4a40;
+  /* Ink — remapped to brand navy so all existing var(--ink) usages
+     become brand-aligned without per-file edits. */
+  --ink: #00223f;
+  --ink-soft: #1a3354;
 
-  /* Sage / forest greens */
-  --sage: #8aa081;
-  --moss: #5c7359;
-  --forest: #2f4a3a;
-  --forest-deep: #1d3024;
+  /* Legacy semantic names — remapped to brand. The old greens
+     (moss/forest/sage) become navy or gold so any section that still
+     references them automatically inherits the brand palette. */
+  --moss: #aa7220; /* was sage — eyebrows now gold */
+  --sage: #efb252;
+  --forest: #00223f;
+  --forest-deep: #001628;
 
-  /* Warm accent */
-  --accent-rose: #c98e7b;
-  --accent-rose-deep: #a96b58;
+  --accent-rose: #efb252;
+  --accent-rose-deep: #9a6100;
 
-  /* Type — editorial serif display + Helvetica body, the original mix */
-  --font-display: 'Fraunces', 'Cinzel Decorative', 'Times New Roman', serif;
+  /* Type — Cinzel Decorative is the brand display face;
+     Montserrat is the brand-recommended body pairing. Italianno
+     and Cormorant retained for decorative italic accents. */
+  --font-display: 'Cinzel Decorative', 'Fraunces', 'Times New Roman', serif;
   --font-cursive: 'Italianno', 'Cormorant Garamond', cursive;
   --font-italic: 'Cormorant Garamond', 'Fraunces', 'Times New Roman', serif;
-  --font-body: 'Helvetica Neue', Helvetica, 'Inter', -apple-system, Arial, sans-serif;
+  --font-body: 'Montserrat', 'Helvetica Neue', Helvetica, 'Inter',
+    -apple-system, Arial, sans-serif;
 
   /* Layout */
   --gutter: clamp(1.25rem, 4vw, 3rem);

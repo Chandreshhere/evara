@@ -1,11 +1,18 @@
 .bs-section {
   position: relative;
   width: 100%;
-  background: #3d1318;
-  color: #f4efe6;
+  height: 100vh;
+  min-height: 720px;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 0%, rgba(239, 178, 82, 0.18), transparent 65%),
+    radial-gradient(ellipse 70% 60% at 100% 100%, rgba(154, 97, 0, 0.22), transparent 70%),
+    linear-gradient(160deg, #001628 0%, #00223f 50%, #001a30 100%);
+  color: var(--bone);
   z-index: 36;
   overflow: hidden;
-  padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 100px);
+  padding: clamp(2.5rem, 5vh, 4rem) 0 clamp(2rem, 4vh, 3.5rem);
+  display: flex;
+  flex-direction: column;
 }
 
 .bs-grain {
@@ -27,24 +34,32 @@
   -webkit-user-drag: none;
 }
 .bs-decor--bottom-left {
-  left: 0;
+  left: 50%;
   bottom: 0;
+  transform: translateX(-30%);
   width: clamp(280px, 34vw, 560px);
 }
 
 .bs-content {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 3rem);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .bs-top {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.5rem, 3vh, 2.5rem);
+  gap: clamp(0.75rem, 2vh, 1.5rem);
+  margin-top: clamp(-1.5rem, -2vh, -1rem);
   margin-bottom: clamp(2.5rem, 5vh, 4.5rem);
+  flex-shrink: 0;
 }
 @media (min-width: 900px) {
   .bs-top {
@@ -57,6 +72,8 @@
 .bs-top-left {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .bs-intro {
@@ -80,34 +97,43 @@
   font-size: 0.7rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(244, 239, 230, 0.78);
-  border-top: 1px solid rgba(244, 239, 230, 0.35);
-  border-bottom: 1px solid rgba(244, 239, 230, 0.35);
+  color: var(--gold-light);
+  border-top: 1px solid rgba(239, 178, 82, 0.4);
+  border-bottom: 1px solid rgba(239, 178, 82, 0.4);
 }
 
 .bs-headline {
   margin: 0;
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
-  font-size: clamp(3.4rem, 7vw, 7.4rem);
-  line-height: 0.96;
+  font-size: clamp(2.6rem, 5.4vw, 5.4rem);
+  line-height: 0.98;
   letter-spacing: -0.01em;
   font-weight: 400;
-  color: #f4efe6;
-  text-align: left;
-  max-width: 12ch;
+  color: var(--bone);
+  text-align: center;
+  white-space: nowrap;
 }
 .bs-headline em {
-  font-family: var(--font-cursive);
-  font-style: italic;
-  font-size: 1.2em;
-  letter-spacing: -0.01em;
-  color: #f4efe6;
-  font-weight: 400;
+  font-family: inherit;
+  font-style: normal;
+  font-size: 1em;
+  letter-spacing: inherit;
+  color: var(--gold-light);
+  font-weight: inherit;
+}
+
+.bs-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(2.5rem, 5vh, 4.5rem);
+  flex-wrap: wrap;
 }
 
 .bs-body {
-  margin: clamp(2.5rem, 5vh, 4.5rem) 0 0 auto;
+  margin: 0;
   max-width: 38ch;
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
@@ -115,14 +141,25 @@
   line-height: 1.55;
   letter-spacing: -0.005em;
   color: rgba(244, 239, 230, 0.84);
+}
+
+.bs-body--left {
+  text-align: left;
+  flex: 1 1 320px;
+}
+
+.bs-body--right {
   text-align: right;
+  flex: 1 1 320px;
 }
 
 /* ---- 3D Cylinder Track ---- */
 .bs-track {
   position: relative;
   width: 100%;
-  height: clamp(500px, 56vw, 720px);
+  flex: 1 1 auto;
+  min-height: 0;
+  height: auto;
   perspective: 1900px;
   perspective-origin: 50% 45%;
   cursor: grab;

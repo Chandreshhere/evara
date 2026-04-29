@@ -1,208 +1,194 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
-import { preloadFrames } from '../lib/preload';
+import { useEffect, useRef } from 'react';
+import { ScrollTrigger } from '../lib/gsap';
 import './Footer.css';
-
-const FRAME_COUNT = 90;
 
 export default function Footer() {
   const sectionRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const [ready, setReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const prefix = isMobile ? '/frames/footer/sm/' : '/frames/footer/';
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
 
-    let cancelled = false;
-    preloadFrames(prefix, FRAME_COUNT).then((imgs) => {
-      if (cancelled) return;
-      imagesRef.current = imgs;
-      setReady(true);
-    });
+    let scrubST: ScrollTrigger | null = null;
+
+    const setupScrub = () => {
+      const duration = video.duration;
+      if (!duration || !isFinite(duration)) return;
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch {
+        // ignore
+      }
+      scrubST = ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'top top',
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const t = Math.min(duration * self.progress, duration - 0.001);
+          video.currentTime = t;
+        },
+      });
+    };
+
+    if (video.readyState >= 1 && isFinite(video.duration)) {
+      setupScrub();
+    } else {
+      video.addEventListener('loadedmetadata', setupScrub, { once: true });
+    }
+
     return () => {
-      cancelled = true;
+      video.removeEventListener('loadedmetadata', setupScrub);
+      scrubST?.kill();
     };
   }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    const canvas = canvasRef.current;
-    const section = sectionRef.current;
-    const overlay = overlayRef.current;
-    if (!canvas || !section || !overlay) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    const resize = () => {
-      const { clientWidth, clientHeight } = canvas;
-      canvas.width = Math.floor(clientWidth * dpr);
-      canvas.height = Math.floor(clientHeight * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const drawFrame = (i: number) => {
-      const img = imagesRef.current[i];
-      if (!img) return;
-      const cw = canvas.clientWidth;
-      const ch = canvas.clientHeight;
-      const iw = img.naturalWidth;
-      const ih = img.naturalHeight;
-      const cAspect = cw / ch;
-      const iAspect = iw / ih;
-      let dw = cw,
-        dh = ch,
-        dx = 0,
-        dy = 0;
-      if (iAspect > cAspect) {
-        dh = ch;
-        dw = ch * iAspect;
-        dx = (cw - dw) / 2;
-      } else {
-        dw = cw;
-        dh = cw / iAspect;
-        dy = (ch - dh) / 2;
-      }
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, dx, dy, dw, dh);
-    };
-
-    drawFrame(0);
-
-    // Video frames advance while the user is APPROACHING the footer —
-    // start scrubbing when the section first enters the viewport, finish
-    // by the time it's fully in view. No pin — the section scrolls past
-    // naturally and the clip is already played by the time the user is
-    // standing on it.
-    const st = ScrollTrigger.create({
-      trigger: section,
-      start: 'top bottom',
-      end: 'top top',
-      scrub: 0.5,
-      onUpdate: (self) => {
-        const idx = Math.round(self.progress * (FRAME_COUNT - 1));
-        drawFrame(idx);
-      },
-    });
-
-    // Overlay copy fades + lifts in over the same approach window
-    const overlayTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        end: 'top 20%',
-        scrub: 0.6,
-      },
-    });
-    overlayTl
-      .from(overlay.querySelectorAll('.footer-line'), {
-        yPercent: 80,
-        autoAlpha: 0,
-        stagger: 0.12,
-        ease: 'power2.out',
-      })
-      .from(
-        overlay.querySelectorAll('.footer-col, .footer-mark'),
-        { autoAlpha: 0, y: 24, stagger: 0.08, ease: 'power2.out' },
-        '>-0.2',
-      );
-
-    // "Forever" — blur to clarity on scroll, in place
-    const titleEl = overlay.querySelector('.footer-title');
-    const titleBlur = titleEl
-      ? gsap.fromTo(
-          titleEl,
-          { filter: 'blur(16px)' },
-          {
-            filter: 'blur(0px)',
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 90%',
-              end: 'top 50%',
-              scrub: 0.4,
-            },
-          },
-        )
-      : null;
-
-    return () => {
-      window.removeEventListener('resize', resize);
-      st.kill();
-      overlayTl.kill();
-      titleBlur?.scrollTrigger?.kill();
-      titleBlur?.kill();
-    };
-  }, [ready]);
-
-  const year = new Date().getFullYear();
 
   return (
     <section ref={sectionRef} className="footer-section">
       <div className="footer-canvas-wrap">
-        <canvas ref={canvasRef} className="footer-canvas" aria-hidden="true" />
+        <video
+          ref={videoRef}
+          className="footer-video"
+          src="/footer.mp4"
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
         <div className="footer-canvas-tint" />
       </div>
 
-      <div className="footer-overlay" ref={overlayRef}>
-        <div className="footer-top">
-          <span className="footer-mono">
-            Evara &middot; Editorial Wedding Atelier
-          </span>
-          <span className="footer-mono footer-mono--accent">
-            ( An everlasting note )
-          </span>
-        </div>
-
-        <div className="footer-headline">
-          <span className="footer-tag footer-line">A lifetime begins —</span>
-          <h2 className="footer-title footer-line">Forever</h2>
-          <p className="footer-lede footer-line">
-            The day fades, the story stays. Should yours wish to be told with
-            the same quiet care, <em className="footer-lede-script">begin</em>{' '}
-            a conversation with us.
-          </p>
-        </div>
-
-        <div className="footer-grid">
-          <div className="footer-col">
-            <span className="footer-col-num" aria-hidden>
-              N&deg;&nbsp;01
-            </span>
-            <span className="footer-col-label">Reach</span>
-            <a href="mailto:hello@evara.studio">hello@evara.studio</a>
-            <a href="tel:+34644102880">+34 644 102 880</a>
-          </div>
-          <div className="footer-col">
-            <span className="footer-col-num" aria-hidden>
-              N&deg;&nbsp;02
-            </span>
-            <span className="footer-col-label">Follow</span>
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="Pinterest">Pinterest</a>
-            <a href="#" aria-label="Vimeo">Vimeo</a>
-          </div>
-          <div className="footer-col">
-            <span className="footer-col-num" aria-hidden>
-              N&deg;&nbsp;03
-            </span>
-            <span className="footer-col-label">Visit</span>
-            <p>Atelier &mdash; Madrid</p>
-            <p>By appointment only</p>
-          </div>
-
-          <div className="footer-mark">
-            <span className="footer-mark-name">Evara</span>
-            <small>© {year} &middot; Crafted with patience.</small>
-          </div>
-        </div>
+      <div className="footer-center">
+        <span className="footer-tag">A lifetime begins —</span>
+        <h2 className="footer-title">Forever yours</h2>
+        <p className="footer-signoff-line">
+          with patience, until the last note.
+        </p>
       </div>
+
+      <div className="footer-brand-center">
+        <img
+          src="/images/evara-logo-light.png"
+          alt="Evara Weddings"
+          className="footer-brand-logo"
+          draggable={false}
+        />
+      </div>
+
+      <aside className="footer-contact" aria-label="Contact">
+        <ul className="footer-contact-list">
+          <li>
+            <span className="footer-contact-label">Atelier</span>
+            <span className="footer-contact-value">
+              12 Rajwada Marg, Udaipur, India
+            </span>
+          </li>
+          <li>
+            <span className="footer-contact-label">Email</span>
+            <a
+              className="footer-contact-value"
+              href="mailto:hello@evaraweddings.com"
+            >
+              hello@evaraweddings.com
+            </a>
+          </li>
+          <li>
+            <span className="footer-contact-label">Phone</span>
+            <a className="footer-contact-value" href="tel:+919876543210">
+              +91 98765 43210
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <aside className="footer-social" aria-label="Social">
+        <span className="footer-social-label">Follow</span>
+        <ul className="footer-social-list">
+          <li>
+            <a
+              href="https://instagram.com/evaraweddings"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Zm5 5.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Zm5.25-1.25a.75.75 0 1 1-.75.75.75.75 0 0 1 .75-.75Z"
+                />
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://pinterest.com/evaraweddings"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Pinterest"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3a9 9 0 0 0-3.3 17.4c-.1-.7-.2-1.9 0-2.7l1.3-5.5s-.3-.7-.3-1.7c0-1.6.9-2.7 2-2.7.95 0 1.4.7 1.4 1.55 0 .95-.6 2.35-.9 3.65-.25 1.1.55 2 1.65 2 2 0 3.5-2.1 3.5-5.1 0-2.65-1.9-4.5-4.65-4.5-3.15 0-5 2.35-5 4.8 0 .95.35 2 .8 2.5.1.1.1.2.1.3l-.3 1.2c-.05.2-.15.25-.4.15-1.4-.65-2.25-2.7-2.25-4.35 0-3.55 2.6-6.8 7.45-6.8 3.9 0 6.95 2.8 6.95 6.5 0 3.9-2.45 7-5.85 7-1.15 0-2.2-.6-2.55-1.3l-.7 2.65c-.25.95-.9 2.15-1.35 2.85A9 9 0 1 0 12 3Z"
+                />
+              </svg>
+              <span>Pinterest</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://facebook.com/evaraweddings"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.5 21v-7.5h2.4l.4-3H14.5V8.7c0-.9.3-1.5 1.55-1.5h1.65V4.6a23 23 0 0 0-2.4-.13c-2.4 0-4 1.5-4 4.1V10.5h-2.6v3h2.6V21Z"
+                />
+              </svg>
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://youtube.com/@evaraweddings"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="YouTube"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-3.8 31 31 0 0 0-.4-3.8ZM10 15.1V8.9l5.2 3.1Z"
+                />
+              </svg>
+              <span>YouTube</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
     </section>
   );
 }

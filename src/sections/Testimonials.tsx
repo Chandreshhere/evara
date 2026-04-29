@@ -14,21 +14,21 @@ const TESTIMONIALS: Testimonial[] = [
       'EVARA transformed our vision into a majestic reality. The attention to detail and cultural authenticity were unparalleled.',
     name: 'Priya & Arjun',
     place: 'Udaipur, 2024',
-    image: '/images/1.jpeg',
+    image: '/images/testimonial-01.jpg',
   },
   {
     quote:
       'Our wedding was beyond our wildest dreams. Every moment was crafted with such elegance and perfection.',
     name: 'Meera & Raj',
     place: 'Jaipur, 2024',
-    image: '/images/2.jpeg',
+    image: '/images/testimonial-02.jpg',
   },
   {
     quote:
       'The team at EVARA made our special day truly unforgettable. Their expertise in Indian weddings is unmatched.',
     name: 'Ananya & Vikram',
     place: 'Goa, 2023',
-    image: '/images/3.jpeg',
+    image: '/images/testimonial-03.jpg',
   },
 ];
 

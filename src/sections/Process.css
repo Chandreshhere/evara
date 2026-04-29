@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 160vh;
   background: var(--bone);
-  color: #1f2950;
+  color: var(--brand-navy);
   z-index: 40;
   padding: clamp(2rem, 5vh, 4rem) clamp(2rem, 5vw, 5rem);
   overflow: visible;
@@ -18,8 +18,8 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: clamp(28rem, 50vw, 60rem);
-  height: clamp(28rem, 56vh, 60rem);
+  width: clamp(22rem, 42vw, 50rem);
+  height: clamp(16rem, 32vh, 36rem);
   background: radial-gradient(
     ellipse 110% 110% at 100% 100%,
     var(--bone) 0%,
@@ -60,18 +60,20 @@
   font-size: clamp(3.6rem, 7.4vw, 7.6rem);
   line-height: 0.96;
   letter-spacing: -0.01em;
-  color: #6a232c;
+  color: var(--brand-navy);
   font-weight: 400;
   margin: 0 0 clamp(3rem, 6vh, 5rem);
+  white-space: nowrap;
 }
 .process-headline-script {
   font-family: var(--font-cursive);
   font-style: italic;
   font-size: 1.2em;
   letter-spacing: -0.01em;
-  color: #6a232c;
+  color: var(--gold-deep);
   font-weight: 400;
   margin-left: 0.05em;
+  white-space: nowrap;
 }
 
 /* The vertical step list. A faint hairline runs down the left edge of
@@ -98,7 +100,7 @@
   font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
   font-size: clamp(2.4rem, 4.4vw, 4.4rem);
   line-height: 1;
-  color: #6a232c;
+  color: var(--brand-navy);
   font-weight: 400;
   letter-spacing: -0.01em;
   /* Sit on the hairline rather than crowding it. */
@@ -119,7 +121,7 @@
   font-size: clamp(0.85rem, 1vw, 1.05rem);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #1f2950;
+  color: var(--brand-navy);
   margin: 0;
   font-weight: 500;
 }
@@ -129,7 +131,7 @@
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.5;
   letter-spacing: -0.005em;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.84;
   margin: 0;
   max-width: 38ch;

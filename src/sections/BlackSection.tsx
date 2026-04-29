@@ -43,8 +43,8 @@ export default function BlackSection() {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      setRadius(w < 768 ? Math.max(w * 0.74, 300) : Math.max(w * 0.44, 480));
-      setCardWidth(w < 768 ? 150 : Math.min(Math.max(w * 0.155, 200), 270));
+      setRadius(w < 768 ? Math.max(w * 0.7, 280) : Math.max(w * 0.4, 430));
+      setCardWidth(w < 768 ? 135 : Math.min(Math.max(w * 0.14, 180), 240));
     };
     update();
     window.addEventListener('resize', update);
@@ -265,14 +265,40 @@ export default function BlackSection() {
       return;
     }
 
-    const momentum = dragRef.current.velocity * 0.04;
+    // Free-stop: glide a touch with the release momentum and stay
+    // wherever the user let go — no snapping to the nearest card.
     const sensitivity =
       typeof window !== 'undefined'
         ? window.innerWidth < 768
           ? window.innerWidth / 8
           : window.innerWidth / 14
         : 100;
-    snapToNearest((momentum / sensitivity) * anglePerCard);
+    const coast =
+      (dragRef.current.velocity * 0.04 / sensitivity) * anglePerCard;
+    const targetAngle = angleRef.current + coast;
+
+    // Keep the dot/index in sync with the visible card without
+    // forcing the rotation onto its center.
+    const normalized = ((-targetAngle % 360) + 360) % 360;
+    setCurrent(Math.round(normalized / anglePerCard) % total);
+
+    const proxy = { v: angleRef.current };
+    gsap.killTweensOf(proxy);
+    gsap.to(proxy, {
+      v: targetAngle,
+      duration: 0.55,
+      ease: 'power2.out',
+      overwrite: true,
+      onUpdate: () => {
+        angleRef.current = proxy.v;
+        gsap.set(drumRef.current, {
+          rotateY: proxy.v,
+          x: '-50%',
+          y: '-50%',
+        });
+      },
+      onComplete: () => startAutoSpin(),
+    });
   };
 
   return (
@@ -294,20 +320,10 @@ export default function BlackSection() {
       <div className="bs-content">
         <div className="bs-top">
           <div className="bs-top-left">
-            <span className="bs-kicker bs-reveal">
-              Editorial &middot; Vol. 24
-            </span>
             <h2 id="bs-heading" className="bs-headline bs-reveal">
-              Explore the
-              <br />
-              <em>Chapters</em>
+              Explore the <em>Chapters</em>
             </h2>
           </div>
-          <p className="bs-intro bs-reveal">
-            Twelve weddings, twelve worlds — drawn from heritage palaces,
-            vineyards, and coastlines. Each chapter is an editorial study in
-            the slow art of celebration.
-          </p>
         </div>
 
         <div
@@ -404,11 +420,17 @@ export default function BlackSection() {
           </div>
         </div>
 
-        <p className="bs-body bs-reveal">
-          Step into a celebration crafted with timeless elegance and heartfelt
-          artistry. Let EVARA transform your love story into a regal affair
-          destined to be remembered for generations.
-        </p>
+        <div className="bs-foot">
+          <p className="bs-body bs-body--left bs-reveal">
+            Twelve chapters, twelve worlds — palaces, vineyards, and coastlines
+            curated into a single editorial journey through the EVARA atelier.
+          </p>
+          <p className="bs-body bs-body--right bs-reveal">
+            Step into a celebration crafted with timeless elegance and
+            heartfelt artistry. Let EVARA transform your love story into a
+            regal affair destined to be remembered for generations.
+          </p>
+        </div>
       </div>
     </section>
   );

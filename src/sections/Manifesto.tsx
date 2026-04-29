@@ -4,25 +4,47 @@ import './Manifesto.css';
 
 const PHOTOS = [
   {
-    src: 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=720&q=80',
-    alt: 'Bride seated in white silk',
+    src: '/images/9.jpeg',
+    alt: 'Wedding moment',
     rotate: -6,
     translate: '40px, -10px',
   },
   {
-    src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=720&q=80',
-    alt: 'Bride and groom toasting champagne',
+    src: '/images/8.jpeg',
+    alt: 'Wedding moment',
     rotate: 0,
     translate: '0, 22px',
     caption: 'love is in the air',
   },
   {
-    src: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?auto=format&fit=crop&w=720&q=80',
-    alt: 'Wedding cake with cherries',
+    src: '/images/10.jpeg',
+    alt: 'Wedding moment',
     rotate: 5,
     translate: '-30px, 0',
   },
 ];
+
+const MARQUEE = [
+  '/images/evara-01.jpg',
+  '/images/evara-02.jpg',
+  '/images/evara-03.jpg',
+  '/images/evara-04.jpg',
+  '/images/evara-05.jpg',
+  '/images/evara-06.jpg',
+  '/images/evara-07.jpg',
+];
+
+function MarqueeRow() {
+  return (
+    <>
+      {MARQUEE.map((src, i) => (
+        <figure className="swan-marquee__item" key={`${src}-${i}`}>
+          <img src={src} alt="" loading="lazy" />
+        </figure>
+      ))}
+    </>
+  );
+}
 
 export default function Manifesto() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -102,19 +124,26 @@ export default function Manifesto() {
 
       <div className="swan-welcome">
         <h3 className="swan-welcome-headline">
-          Where Every Love Story Finds Its Magic
+          A wedding, written
+          <br />
+          in your own hand.
         </h3>
         <p className="swan-welcome-body">
-          Let your royal love story unfold in a canvas of timeless elegance
-          where every detail is artfully curated and every memory becomes a
-          masterpiece. Step into EVARA&apos;s world of everlasting celebration,
-          where moments shine with grandeur and passion, echoing through
-          eternity.
+          We design weddings the way couture is made &mdash; slowly, in private,
+          to a single measure. No template, no spectacle for its own sake.
+          Only the rituals that matter to you, set in rooms that know how to
+          hold them, with the kind of detail your family will remember by
+          name.
         </p>
-        <a className="swan-welcome-cta" href="#services">
-          View Services
-        </a>
       </div>
+
+      <div className="swan-marquee" aria-hidden>
+        <div className="swan-marquee__track">
+          <MarqueeRow />
+          <MarqueeRow />
+        </div>
+      </div>
+
 
       {/* EVARA caps + sub para — commented out for now, will reuse copy elsewhere
       <h2 className="swan-title">

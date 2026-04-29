@@ -20,7 +20,7 @@ export default function Book() {
 
   return (
     <section className="book" id="book">
-      <span className="book-eyebrow">Book your moment</span>
+      {/* <span className="book-eyebrow">Book your moment</span> */}
       <img
         className="book-stars"
         src="/images/stars.png"
@@ -34,14 +34,14 @@ export default function Book() {
           src="/images/envelope.png"
           alt="Open envelope with letter card"
         />
-        <button
+        {/* <button
           type="button"
           className="envelope-stamp"
           onClick={() => setOpen(true)}
           aria-label="Open contact form"
         >
           <img src="/images/decor-3.png" alt="" aria-hidden />
-        </button>
+        </button> */}
         <div className="envelope-letter">
           <h2 className="book-headline">
             Begin your

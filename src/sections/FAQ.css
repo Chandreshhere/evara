@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   background: var(--bone);
-  color: #1f2950;
+  color: var(--brand-navy);
   padding: clamp(5rem, 12vh, 9rem) clamp(2rem, 5vw, 5rem)
     clamp(5rem, 10vh, 8rem);
   overflow: hidden;
@@ -60,7 +60,7 @@
   font-size: clamp(0.72rem, 0.82vw, 0.85rem);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.55;
   z-index: 4;
 }
@@ -155,7 +155,7 @@
   font-style: italic;
   font-size: clamp(1.6rem, 2.4vw, 2.4rem);
   line-height: 1;
-  color: #6a232c;
+  color: var(--brand-navy);
   letter-spacing: -0.01em;
   margin-left: -0.05em;
 }
@@ -165,7 +165,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.7;
 }
 
@@ -181,7 +181,7 @@
   font-size: clamp(2.8rem, 6.4vw, 6.4rem);
   line-height: 0.95;
   letter-spacing: -0.01em;
-  color: #6a232c;
+  color: var(--brand-navy);
   font-weight: 400;
   margin: 0 0 clamp(1.4rem, 3vh, 2.2rem);
 }
@@ -191,7 +191,7 @@
   font-style: italic;
   font-size: 1.18em;
   letter-spacing: -0.01em;
-  color: #6a232c;
+  color: var(--gold-deep);
   font-weight: 400;
   margin-left: 0.05em;
 }
@@ -202,7 +202,7 @@
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.55;
   letter-spacing: -0.005em;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.84;
   max-width: 46ch;
   margin: 0 0 clamp(2.5rem, 5vh, 3.5rem);
@@ -259,7 +259,7 @@
   font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
   font-size: clamp(1.4rem, 2vw, 2rem);
   line-height: 1;
-  color: #6a232c;
+  color: var(--brand-navy);
   letter-spacing: -0.01em;
   opacity: 0.8;
   min-width: 2.4ch;
@@ -272,23 +272,24 @@
   font-weight: 400;
   font-size: clamp(1.15rem, 1.7vw, 1.55rem);
   line-height: 1.25;
-  color: #1f2950;
+  color: var(--brand-navy);
   letter-spacing: -0.005em;
   transition: color 0.4s ease;
 }
 
 .faq-row:hover .faq-q,
 .faq-row:focus-visible .faq-q {
-  color: #6a232c;
+  color: var(--gold-deep);
 }
 
 .faq-row:hover .faq-num {
   opacity: 1;
   transform: translateX(-2px);
+  color: var(--gold-deep);
 }
 
 .faq-item.is-open .faq-q {
-  color: #6a232c;
+  color: var(--gold-deep);
 }
 
 .faq-item.is-open .faq-num {
@@ -308,7 +309,7 @@
 
 .faq-icon-bar {
   position: absolute;
-  background: #1f2950;
+  background: var(--brand-navy);
   top: 50%;
   left: 50%;
   transition:
@@ -331,7 +332,7 @@
 
 .faq-row:hover .faq-icon-bar,
 .faq-item.is-open .faq-icon-bar {
-  background: #6a232c;
+  background: var(--gold-deep);
 }
 
 .faq-item.is-open .faq-icon-bar--v {
@@ -369,7 +370,7 @@
   font-size: clamp(1rem, 1.15vw, 1.18rem);
   line-height: 1.65;
   letter-spacing: -0.003em;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.86;
   max-width: 60ch;
   margin: 0;
@@ -393,12 +394,12 @@
   font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
   font-size: clamp(1rem, 1.15vw, 1.18rem);
   line-height: 1.55;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.82;
 }
 
 .faq-foot-link {
-  color: #6a232c;
+  color: var(--gold-deep);
   text-decoration: none;
   background: linear-gradient(currentColor, currentColor) bottom left / 100% 1px
     no-repeat;
@@ -414,7 +415,7 @@
   font-family: var(--font-cursive);
   font-style: italic;
   font-size: 1.35em;
-  color: #6a232c;
+  color: var(--gold-deep);
   letter-spacing: -0.01em;
   vertical-align: -0.06em;
 }

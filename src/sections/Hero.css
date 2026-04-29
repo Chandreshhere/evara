@@ -142,6 +142,9 @@
   margin-top: -4.5rem;
   align-self: start;
 }
+.hero-tile--top-center img {
+  transform: scale(1.7) translateY(38%);
+}
 
 .hero-tile--top-right {
   grid-column: 3;
@@ -168,6 +171,7 @@
   padding: 0 1rem;
   position: relative;
   z-index: 2;
+  transform: translateY(-3rem);
 }
 
 .hero-dot {
@@ -185,14 +189,14 @@
   font-size: 0.78rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #6a232c;
+  color: var(--brand-navy);
   margin: 0 0 1.6rem;
   opacity: 0.85;
 }
 .hero-eyebrow span {
   display: inline-block;
   margin: 0 0.6em;
-  color: #6a232c;
+  color: var(--brand-navy);
 }
 
 .hero-headline {
@@ -201,7 +205,7 @@
   font-size: clamp(2.4rem, 5.6vw, 5.4rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: #6a232c;
+  color: var(--brand-navy);
   max-width: 1100px;
   margin: 0 auto;
   font-weight: 400;

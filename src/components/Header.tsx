@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap } from '../lib/gsap';
 import './Header.css';
 
 export default function Header() {
@@ -13,18 +13,48 @@ export default function Header() {
     gsap.set(header, { autoAlpha: 0, y: -16 });
     gsap.to(header, { autoAlpha: 1, y: 0, duration: 0.9, delay: 0.2, ease: 'power2.out' });
 
-    // Hide once user has scrolled past the hero
-    const trigger = ScrollTrigger.create({
-      trigger: '.hero',
-      start: 'bottom top+=20',
-      onEnter: () =>
-        gsap.to(header, { yPercent: -160, autoAlpha: 0, duration: 0.5, ease: 'power2.out' }),
-      onLeaveBack: () =>
-        gsap.to(header, { yPercent: 0, autoAlpha: 1, duration: 0.5, ease: 'power2.out' }),
-    });
+    let lastY = window.scrollY;
+    let hidden = false;
+    const THRESHOLD = 12;
+    const SHOW_AT_TOP = 80;
 
+    const update = () => {
+      const y = window.scrollY;
+      const dy = y - lastY;
+
+      if (y < SHOW_AT_TOP) {
+        if (hidden) {
+          hidden = false;
+          gsap.to(header, { yPercent: 0, autoAlpha: 1, duration: 0.45, ease: 'power2.out' });
+        }
+      } else if (dy > THRESHOLD) {
+        if (!hidden) {
+          hidden = true;
+          gsap.to(header, { yPercent: -160, autoAlpha: 0, duration: 0.45, ease: 'power2.out' });
+        }
+        lastY = y;
+      } else if (dy < -THRESHOLD) {
+        if (hidden) {
+          hidden = false;
+          gsap.to(header, { yPercent: 0, autoAlpha: 1, duration: 0.45, ease: 'power2.out' });
+        }
+        lastY = y;
+      }
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        update();
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
-      trigger.kill();
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
@@ -56,7 +86,12 @@ export default function Header() {
           aria-expanded={expanded}
           aria-label="Toggle navigation"
         >
-          <span className="cursive">Evara</span>
+          <img
+            className="brand-logo"
+            src="/images/evara-logo.png"
+            alt="Evara Weddings"
+            draggable={false}
+          />
         </button>
 
         <nav className="header-nav header-nav--right" aria-hidden={!expanded}>

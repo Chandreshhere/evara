@@ -4,32 +4,32 @@ import './Pause.css';
 
 const PAGES = [
   {
-    src: '/images/1.jpeg',
+    src: '/images/chapters/c1.jpg',
     title: 'Custom Wedding Design',
     tagline: 'Every wedding a royal masterpiece',
   },
   {
-    src: '/images/2.jpeg',
+    src: '/images/chapters/c2.jpeg',
     title: 'Luxury Guest Management',
     tagline: 'Seamless comfort for every guest',
   },
   {
-    src: '/images/3.jpeg',
+    src: '/images/chapters/c3.jpeg',
     title: 'Personalized Invitations & Gifting',
     tagline: 'Stories written in every invitation and gift',
   },
   {
-    src: '/images/4.jpeg',
+    src: '/images/chapters/c4.jpeg',
     title: 'Vendor Coordination & Supervision',
     tagline: 'Trusted partners, flawless execution',
   },
   {
-    src: '/images/5.jpeg',
+    src: '/images/chapters/c5.jpeg',
     title: 'Ritual Coordination',
     tagline: 'Seamlessly weaving sacred traditions into your celebration',
   },
   {
-    src: '/images/1.jpeg',
+    src: '/images/chapters/c6.jpg',
     title: 'Grand Venue Selection',
     tagline: 'Palaces and heritage, perfectly chosen',
   },

@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 100vh;
   background: var(--bone);
-  color: #1f2950;
+  color: var(--brand-navy);
   isolation: isolate;
   z-index: 25;
 }
@@ -73,10 +73,10 @@
   margin: 0;
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
-  font-size: clamp(2.4rem, 6vw, 6.4rem);
+  font-size: clamp(2rem, 5vw, 5.2rem);
   line-height: 0.95;
   letter-spacing: 0.01em;
-  color: #6a232c;
+  color: var(--brand-navy);
   font-weight: 400;
   z-index: 2;
   pointer-events: none;
@@ -103,7 +103,7 @@
   font-style: italic;
   font-size: 1.15em;
   letter-spacing: -0.01em;
-  color: #6a232c;
+  color: var(--gold-deep);
   font-weight: 400;
   margin-left: 0.15em;
   vertical-align: -0.05em;
@@ -121,7 +121,7 @@
   font-size: clamp(1.25rem, 1.55vw, 1.6rem);
   line-height: 1.55;
   letter-spacing: -0.005em;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.82;
   margin: 0;
   z-index: 2;
@@ -144,7 +144,7 @@
   font-size: clamp(0.72rem, 0.82vw, 0.85rem);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.7;
   z-index: 4;
 }
@@ -294,7 +294,7 @@
   font-size: 0.66rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #1f2950;
+  color: var(--brand-navy);
   opacity: 0.55;
 }
 

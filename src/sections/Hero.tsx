@@ -11,23 +11,23 @@ const TILES = [
   },
   {
     pos: 'top-center',
-    src: '/images/5.jpeg',
-    alt: 'Wedding moment five',
-  },
-  {
-    pos: 'top-right',
     src: '/images/2.jpeg',
     alt: 'Wedding moment two',
   },
   {
-    pos: 'bottom-left',
+    pos: 'top-right',
     src: '/images/3.jpeg',
     alt: 'Wedding moment three',
   },
   {
-    pos: 'bottom-right',
+    pos: 'bottom-left',
     src: '/images/4.jpeg',
     alt: 'Wedding moment four',
+  },
+  {
+    pos: 'bottom-right',
+    src: '/images/5.jpeg',
+    alt: 'Wedding moment five',
   },
 ];
 
