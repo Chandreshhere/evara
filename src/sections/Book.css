@@ -5,7 +5,10 @@
   height: 100vh;
   background: var(--bone) url('/images/book-bg.png') center 95% / 110% auto no-repeat;
   color: #1f2950;
-  z-index: 35;
+  /* Sit above Process (z:40) so the journey image, which is absolutely
+     positioned inside Process and bleeds outside its bounds, never paints
+     on top of the Book section. */
+  z-index: 45;
   padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 5vw, 5rem);
   overflow: hidden;
 }
