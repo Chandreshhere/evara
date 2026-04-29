@@ -1,0 +1,508 @@
+.book {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  background: var(--bone) url('/images/book-bg.png') center 95% / 110% auto no-repeat;
+  color: #1f2950;
+  z-index: 35;
+  padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 5vw, 5rem);
+  overflow: hidden;
+}
+/* Soft bone wash over the bg image so the envelope and text stay
+   legible on top of the textured pattern. */
+.book::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(244, 239, 230, 0.55) 0%,
+    rgba(244, 239, 230, 0.35) 50%,
+    rgba(244, 239, 230, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.book > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative gold sparkle cluster on the right side of the section. */
+.book-stars {
+  position: absolute;
+  right: clamp(2rem, 5vw, 5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(140px, 16vw, 260px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  z-index: 3;
+}
+
+.book-eyebrow {
+  position: absolute;
+  top: clamp(2rem, 5vh, 4rem);
+  left: clamp(2rem, 5vw, 5rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--moss);
+  opacity: 0.9;
+  z-index: 4;
+}
+
+.book-headline {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(3.4rem, 7vw, 7.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  color: #6a232c;
+  font-weight: 400;
+  margin: 0;
+}
+.book-headline-script {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: 1.2em;
+  letter-spacing: -0.01em;
+  color: #6a232c;
+  font-weight: 400;
+}
+.book-body {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.1rem, 1.35vw, 1.4rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: #1f2950;
+  opacity: 0.84;
+  max-width: 38ch;
+  margin: 0;
+}
+.book-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.05rem 2.2rem;
+  background: #1f2950;
+  color: #f0e9da;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.4s var(--ease-out-expo),
+    transform 0.4s var(--ease-out-expo);
+}
+.book-cta:hover {
+  background: #2a3464;
+  transform: translateY(-2px);
+}
+
+/* ---- Envelope (static image) ---- */
+.envelope {
+  position: relative;
+  width: min(1240px, 100vw);
+  aspect-ratio: 2778 / 3929;
+  margin: clamp(-8rem, -8vh, -4rem) auto 0;
+  max-height: 110vh;
+  user-select: none;
+  filter: drop-shadow(0 40px 90px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 14px 28px rgba(0, 0, 0, 0.24));
+}
+
+.envelope-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Postage stamp — sits in the upper-right of the envelope. */
+.envelope-stamp {
+  position: absolute;
+  top: 8%;
+  left: 10%;
+  width: clamp(80px, 12vw, 180px);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  z-index: 3;
+  transition: transform 0.4s var(--ease-out-expo), filter 0.4s var(--ease-out-expo);
+}
+.envelope-stamp img {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-user-drag: none;
+}
+.envelope-stamp:hover {
+  transform: rotate(-4deg) translateY(-3px);
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.4));
+}
+.envelope-stamp:focus-visible {
+  outline: 2px solid #6a232c;
+  outline-offset: 4px;
+}
+
+/* Text written on the cream card area inside the envelope — sits at
+   the visual position of the letter peeking out of the photograph. */
+.envelope-letter {
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  top: 42%;
+  bottom: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(1rem, 2vh, 1.6rem);
+  padding: clamp(0.6rem, 1.5vh, 1.2rem);
+  pointer-events: none;
+}
+.envelope-letter > * {
+  pointer-events: auto;
+}
+.envelope-letter .book-headline {
+  font-size: clamp(2.4rem, 4.9vw, 4.9rem);
+  margin: clamp(1.5rem, 4vh, 3rem) 0 0;
+}
+.envelope-letter .book-headline-script {
+  font-size: 1.2em;
+}
+.envelope-letter .book-body {
+  font-size: clamp(1.25rem, 1.55vw, 1.6rem);
+  line-height: 1.5;
+  max-width: 30ch;
+  color: var(--bone);
+  opacity: 1;
+  margin-top: clamp(2rem, 5vh, 4rem);
+}
+.envelope-letter .book-cta {
+  align-self: center;
+  padding: 0.8rem 1.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+}
+
+@media (max-width: 720px) {
+  .envelope-letter {
+    left: 16%;
+    right: 16%;
+    top: 30%;
+    bottom: 26%;
+  }
+  .envelope-letter .book-body {
+    display: none;
+  }
+}
+
+/* ---- Contact modal (opens from envelope stamp) ---- */
+
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  animation: contactFade 0.35s var(--ease-out-expo);
+}
+
+@keyframes contactFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.contact-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 20, 30, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.contact-modal__card {
+  position: relative;
+  width: min(960px, 100%);
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 22% 14%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, #fdfaf2 0%, #f1e8d0 100%);
+  color: #1f2950;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.75rem, 4vw, 3.5rem);
+  box-shadow:
+    0 50px 100px -30px rgba(0, 0, 0, 0.55),
+    0 18px 40px -16px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(106, 35, 44, 0.12);
+  animation: contactRise 0.45s var(--ease-out-expo);
+}
+
+@keyframes contactRise {
+  from { opacity: 0; transform: translateY(18px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+.contact-modal__close {
+  position: absolute;
+  top: clamp(0.85rem, 1.5vw, 1.25rem);
+  right: clamp(0.85rem, 1.5vw, 1.25rem);
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(31, 41, 80, 0.25);
+  border-radius: 999px;
+  color: #1f2950;
+  cursor: pointer;
+  transition: background 0.3s var(--ease-out-expo), color 0.3s var(--ease-out-expo);
+}
+.contact-modal__close:hover {
+  background: #1f2950;
+  color: var(--bone);
+}
+
+.contact-modal__head {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+}
+.contact-modal__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.92rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 0.85rem;
+  opacity: 0.9;
+}
+.contact-modal__title {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #6a232c;
+  font-weight: 400;
+  margin: 0;
+}
+.contact-modal__title-script {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 2.5vh, 1.75rem);
+}
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+}
+.contact-form__input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(31, 41, 80, 0.3);
+  padding: 0.85rem 0.25rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #1f2950;
+  letter-spacing: 0.02em;
+  transition: border-color 0.3s var(--ease-out-expo);
+}
+.contact-form__input::placeholder {
+  color: rgba(31, 41, 80, 0.5);
+}
+.contact-form__input:focus {
+  outline: none;
+  border-bottom-color: #6a232c;
+}
+.contact-form__textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-family: var(--font-body);
+}
+
+.contact-form__submit {
+  align-self: center;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2.2rem;
+  background: #1f2950;
+  color: var(--bone);
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+.contact-form__submit:hover {
+  background: #6a232c;
+  transform: translateY(-2px);
+}
+.contact-form__submit svg {
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.contact-form__submit:hover svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 720px) {
+  .contact-form__row {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* ---- Overlay ---- */
+.book-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  perspective: 1800px;
+}
+.book-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(20, 20, 30, 0.7) 0%,
+    rgba(20, 20, 30, 0.92) 100%
+  );
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.book-overlay-cards {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+/* The flying contact cards. Sized like premium calling-cards: wider
+   than tall, paper texture, raised type. */
+.book-card {
+  position: fixed;
+  width: clamp(260px, 22vw, 340px);
+  aspect-ratio: 1.62 / 1;
+  background:
+    radial-gradient(
+      circle at 28% 18%,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 60%
+    ),
+    linear-gradient(180deg, #fdfaf2 0%, #f1e8d0 100%);
+  border-radius: 6px;
+  padding: clamp(1.2rem, 2vh, 1.8rem) clamp(1.4rem, 2vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  box-shadow: 0 32px 80px -24px rgba(0, 0, 0, 0.55),
+    0 12px 28px -12px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 0 0 1px rgba(31, 41, 80, 0.08) inset;
+  opacity: 0;
+  pointer-events: auto;
+  cursor: default;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.book-card-label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--moss);
+  opacity: 0.85;
+}
+.book-card-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.5rem, 1.8vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  margin: 0.1rem 0 0;
+  color: #6a232c;
+  font-weight: 400;
+}
+.book-card-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.04em;
+  color: #1f2950;
+  opacity: 0.84;
+}
+.book-card-mark {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #1f2950;
+  opacity: 0.5;
+  align-self: flex-end;
+}
+
+@media (max-width: 900px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(3rem, 8vh, 5rem);
+    margin-top: clamp(6rem, 12vh, 9rem);
+  }
+  .envelope {
+    aspect-ratio: 5 / 3.4;
+  }
+  .book-card {
+    width: clamp(220px, 70vw, 320px);
+  }
+}

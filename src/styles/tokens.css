@@ -1,0 +1,51 @@
+@font-face {
+  font-family: 'Rise of Beauty';
+  src: url('/fonts/RiseofBeauty-Thin.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rise of Beauty';
+  src: url('/fonts/RiseofBeauty-ThinItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Beige range */
+  --bone: #f4efe6;
+  --cream: #eae2d0;
+  --sand: #d9cdb4;
+  --clay: #b89e7b;
+
+  /* Ink */
+  --ink: #1f2a24;
+  --ink-soft: #3a4a40;
+
+  /* Sage / forest greens */
+  --sage: #8aa081;
+  --moss: #5c7359;
+  --forest: #2f4a3a;
+  --forest-deep: #1d3024;
+
+  /* Warm accent */
+  --accent-rose: #c98e7b;
+  --accent-rose-deep: #a96b58;
+
+  /* Type — editorial serif display + Helvetica body, the original mix */
+  --font-display: 'Fraunces', 'Cinzel Decorative', 'Times New Roman', serif;
+  --font-cursive: 'Italianno', 'Cormorant Garamond', cursive;
+  --font-italic: 'Cormorant Garamond', 'Fraunces', 'Times New Roman', serif;
+  --font-body: 'Helvetica Neue', Helvetica, 'Inter', -apple-system, Arial, sans-serif;
+
+  /* Layout */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --max-w: 1440px;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}

@@ -1,0 +1,320 @@
+.pause {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bone);
+  color: #1f2950;
+  isolation: isolate;
+  z-index: 25;
+}
+
+/* Inner stage — visible composition. The .pause section is what GSAP
+   actually pins; the stage just frames the composition inside it. */
+.pause-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  padding: clamp(2rem, 5vh, 4rem) clamp(2rem, 5vw, 5rem);
+  box-sizing: border-box;
+}
+
+/* Paper texture — same alpha-mask curve as Manifesto so the bone-paper
+   continuity reads as one continuous sheet across sections. */
+.pause-paper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -25vh;
+  width: 100%;
+  height: 95vh;
+  object-fit: cover;
+  object-position: top;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.6) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.6) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.pause-eyebrow {
+  position: absolute;
+  top: clamp(2rem, 5vh, 4rem);
+  left: clamp(2rem, 5vw, 5rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--moss);
+  opacity: 0.9;
+  z-index: 4;
+}
+
+/* Headline split into two words, anchored on the left and right of the
+   stage, vertically centered to flank the centered book. Sized to fit
+   within each side gutter so the type never sits behind the book. */
+.pause-headline {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(2.4rem, 6vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: #6a232c;
+  font-weight: 400;
+  z-index: 2;
+  pointer-events: none;
+}
+.pause-headline-word {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+.pause-headline-word--tl {
+  left: clamp(2rem, 5vw, 5rem);
+  top: clamp(7rem, 18vh, 12rem);
+  transform: none;
+}
+.pause-headline-word--tr {
+  right: clamp(2rem, 5vw, 5rem);
+  top: auto;
+  bottom: clamp(5rem, 12vh, 9rem);
+  transform: none;
+}
+.pause-script {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: 1.15em;
+  letter-spacing: -0.01em;
+  color: #6a232c;
+  font-weight: 400;
+  margin-left: 0.15em;
+  vertical-align: -0.05em;
+}
+
+/* Body paragraphs — split into two halves: the opening sits bottom-left
+   under STEP INTO, the closing sits top-right opposite it. Type matches
+   the Manifesto welcome body (Fraunces display, opsz 14, soft 60) so
+   the two sections share a voice. */
+.pause-body {
+  position: absolute;
+  max-width: clamp(280px, 28vw, 420px);
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.25rem, 1.55vw, 1.6rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: #1f2950;
+  opacity: 0.82;
+  margin: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.pause-body--lb {
+  left: clamp(2rem, 5vw, 5rem);
+  bottom: clamp(5rem, 12vh, 8rem);
+}
+.pause-body--rt {
+  right: clamp(2rem, 5vw, 5rem);
+  top: clamp(7rem, 18vh, 12rem);
+}
+
+.pause-mark {
+  position: absolute;
+  left: clamp(2rem, 5vw, 5rem);
+  bottom: clamp(2rem, 5vh, 4rem);
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.82vw, 0.85rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #1f2950;
+  opacity: 0.7;
+  z-index: 4;
+}
+
+/* ---- Book / page-flip stack ----
+   Pages stacked at center. Each page rotates around its left edge
+   to reveal the page beneath, like turning a book leaf. Each leaf has
+   a front face (the image) and a back face (cream paper) so the user
+   sees the back of the page once it crosses 90deg, like a real book. */
+.pause-book {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(280px, 30vw, 460px);
+  height: clamp(380px, 42vw, 620px);
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.pause-book-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.pause-page {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.pause-page-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 24px 50px -22px rgba(20, 20, 30, 0.28),
+    0 6px 14px -6px rgba(20, 20, 30, 0.14);
+  background: #fdfaf2;
+}
+.pause-page-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Back of the leaf — visible after the page crosses 90deg.
+   Translucent like a sheet of frosted plastic so the headline behind
+   the book reads through the turned leaf. A faint cream tint + diagonal
+   sheen keeps the page legible as a physical object. */
+.pause-page-face--back {
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(241, 232, 211, 0.06) 45%,
+      rgba(255, 255, 255, 0.18) 100%
+    ),
+    rgba(241, 232, 211, 0.18);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 18px 36px -22px rgba(20, 20, 30, 0.18);
+}
+
+/* Self-shadow gradient on the front face — darker toward the spine,
+   ramped up by the timeline at mid-flip to fake the curved shading of
+   a real page bending under its own weight. */
+.pause-page-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.18) 35%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 3;
+}
+
+/* ---- Magazine-style caption on each page ----
+   A title block over the bottom of the image, with a soft dark gradient
+   so the type stays legible whatever the photo behind it looks like. */
+.pause-page-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.6rem 1.4rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  color: #f4efe6;
+  text-align: left;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.42) 45%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+.pause-page-num {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.pause-page-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(1.3rem, 1.7vw, 1.85rem);
+  line-height: 1.05;
+  letter-spacing: 0.005em;
+  margin: 0;
+  font-weight: 400;
+  color: #f4efe6;
+}
+.pause-page-tagline {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(0.85rem, 0.95vw, 1rem);
+  line-height: 1.35;
+  margin: 0.15rem 0 0;
+  opacity: 0.92;
+  max-width: 92%;
+}
+
+/* Tiny folio mark on the back of each leaf — the kind you see in a
+   bound book's gutter. Keeps the back from feeling empty. */
+.pause-page-folio {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #1f2950;
+  opacity: 0.55;
+}
+
+@media (max-width: 768px) {
+  .pause-stage {
+    padding: 2rem 1.4rem;
+  }
+  .pause-headline {
+    font-size: clamp(3rem, 14vw, 5rem);
+    padding-top: 6rem;
+  }
+  .pause-line--mid {
+    margin-top: 36vh;
+  }
+  .pause-body {
+    right: 1.4rem;
+    max-width: 60vw;
+  }
+  .pause-book {
+    width: 60vw;
+    height: 70vw;
+  }
+}

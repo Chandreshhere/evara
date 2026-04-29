@@ -1,0 +1,275 @@
+.bs-section {
+  position: relative;
+  width: 100%;
+  background: #3d1318;
+  color: #f4efe6;
+  z-index: 36;
+  overflow: hidden;
+  padding: clamp(80px, 10vw, 120px) 0 clamp(60px, 8vw, 100px);
+}
+
+.bs-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pn'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pn)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+.bs-decor {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  object-fit: contain;
+  -webkit-user-drag: none;
+}
+.bs-decor--bottom-left {
+  left: 0;
+  bottom: 0;
+  width: clamp(280px, 34vw, 560px);
+}
+
+.bs-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+.bs-top {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  margin-bottom: clamp(2.5rem, 5vh, 4.5rem);
+}
+@media (min-width: 900px) {
+  .bs-top {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+}
+.bs-top-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-intro {
+  margin: 0;
+  max-width: 38ch;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.1rem, 1.35vw, 1.4rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: rgba(244, 239, 230, 0.84);
+  text-align: right;
+  align-self: flex-end;
+}
+
+.bs-kicker {
+  display: inline-block;
+  margin: 0 0 0.9rem;
+  padding: 0.4rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.78);
+  border-top: 1px solid rgba(244, 239, 230, 0.35);
+  border-bottom: 1px solid rgba(244, 239, 230, 0.35);
+}
+
+.bs-headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(3.4rem, 7vw, 7.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: #f4efe6;
+  text-align: left;
+  max-width: 12ch;
+}
+.bs-headline em {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: 1.2em;
+  letter-spacing: -0.01em;
+  color: #f4efe6;
+  font-weight: 400;
+}
+
+.bs-body {
+  margin: clamp(2.5rem, 5vh, 4.5rem) 0 0 auto;
+  max-width: 38ch;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.1rem, 1.35vw, 1.4rem);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: rgba(244, 239, 230, 0.84);
+  text-align: right;
+}
+
+/* ---- 3D Cylinder Track ---- */
+.bs-track {
+  position: relative;
+  width: 100%;
+  height: clamp(500px, 56vw, 720px);
+  perspective: 1900px;
+  perspective-origin: 50% 45%;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+.bs-track:active {
+  cursor: grabbing;
+}
+
+.bs-drum {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.bs-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.bs-card-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #1a0a0c;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: box-shadow 0.4s var(--ease-out-expo);
+}
+.bs-card:hover .bs-card-frame {
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.65),
+    0 12px 28px rgba(0, 0, 0, 0.45);
+}
+.bs-card-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.bs-card-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.3) 0%,
+    transparent 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- Editorial overlay (visible on hover) ----
+   Magazine-cover treatment: tiny eyebrow up top, oversized display
+   couple-name in the middle, italic cursive tagline, locale + EVARA
+   imprint at the bottom — sitting over a soft dark wash. */
+.bs-card-editorial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(0.9rem, 1.2vw, 1.4rem);
+  color: #f4efe6;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.62) 0%,
+      rgba(0, 0, 0, 0.18) 45%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+}
+.bs-card:hover .bs-card-editorial {
+  opacity: 1;
+}
+.bs-card-editorial > * {
+  transform: translateY(8px);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.bs-card:hover .bs-card-editorial > * {
+  transform: translateY(0);
+}
+
+.bs-card-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.85);
+  align-self: center;
+  border-top: 1px solid rgba(244, 239, 230, 0.4);
+  border-bottom: 1px solid rgba(244, 239, 230, 0.4);
+  padding: 0.3rem 0.6rem;
+}
+
+.bs-card-name {
+  margin: auto 0 0.3rem;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #f4efe6;
+}
+
+.bs-card-tagline {
+  margin: 0 0 auto;
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.4vw, 1.5rem);
+  line-height: 1;
+  color: #f4efe6;
+}
+
+.bs-card-locale {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.78);
+  align-self: center;
+}
+

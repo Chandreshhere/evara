@@ -1,0 +1,90 @@
+@import './tokens.css';
+@import './reset.css';
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-feature-settings: 'ss01', 'cv11';
+  letter-spacing: -0.005em;
+  background: var(--bone);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'SOFT' 50, 'WONK' 0;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  font-weight: 400;
+}
+
+.cursive {
+  font-family: var(--font-cursive);
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.italic-serif {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent-rose-deep);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+button.cta,
+a.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  background: var(--forest);
+  color: var(--bone);
+  border-radius: 0;
+  transition: background 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+button.cta:hover,
+a.cta:hover {
+  background: var(--accent-rose-deep);
+  transform: translateY(-2px);
+}
+
+button.cta-outline,
+a.cta-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--moss);
+  color: var(--moss);
+  background: transparent;
+  transition: color 0.4s var(--ease-out-expo), background 0.4s var(--ease-out-expo);
+}
+button.cta-outline:hover,
+a.cta-outline:hover {
+  color: var(--bone);
+  background: var(--moss);
+}

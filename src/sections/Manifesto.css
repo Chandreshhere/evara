@@ -1,0 +1,407 @@
+.swan {
+  position: relative;
+  /* Full-viewport section pulled up so it starts overlapping the tail
+     end of the Hero pin spacer — feels less "gap" between the Hero
+     takeover finishing and Manifesto arriving. */
+  min-height: 100vh;
+  background: var(--bone);
+  color: #1f2950;
+  overflow: visible;
+  isolation: isolate;
+  padding: 0 clamp(2rem, 5vw, 5rem) 0;
+  margin-top: -55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 30;
+}
+
+
+/* ---- Polaroid stack ---- */
+.swan-polaroids {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  margin: -38vh auto 0;
+  width: fit-content;
+  z-index: 5;
+}
+/* Slot is the static hover target — it carries the resting rotation/
+   translation and never moves. The polaroid INSIDE the slot is what
+   lifts on hover, so the cursor stays inside the slot's hitbox the whole
+   time. No flicker, no bouncing. */
+.swan-polaroid-slot {
+  position: relative;
+  display: block;
+  z-index: 30;
+  transform-origin: center center;
+}
+.swan-polaroid-slot--0 {
+  transform: rotate(-6deg) translate(40px, -10px);
+}
+.swan-polaroid-slot--1 {
+  transform: translate(0, 22px);
+  z-index: 31;
+}
+.swan-polaroid-slot--2 {
+  transform: rotate(5deg) translate(-30px, 0);
+}
+
+.swan-polaroid {
+  margin: 0;
+  background: #fdfaf2;
+  padding: 0.9rem 0.9rem 2.4rem;
+  box-shadow: 0 18px 48px -12px rgba(31, 41, 80, 0.22),
+    0 4px 12px -4px rgba(31, 41, 80, 0.12);
+  position: relative;
+  transform: translate(0, 0);
+  transition: transform 0.65s cubic-bezier(0.34, 1.32, 0.64, 1),
+    box-shadow 0.5s var(--ease-out-expo);
+  will-change: transform;
+}
+.swan-polaroid img {
+  display: block;
+  width: clamp(220px, 22vw, 320px);
+  height: clamp(280px, 28vw, 400px);
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+}
+
+/* Toaster pop — slot stays put, only the inner polaroid translates.
+   Translation is in the slot's already-rotated coord space, so each
+   card lifts in the direction its rotation suggests. */
+.swan-polaroid-slot--0:hover .swan-polaroid {
+  transform: translate(-18px, -55px);
+  box-shadow: 0 28px 60px -14px rgba(31, 41, 80, 0.32),
+    0 8px 18px -4px rgba(31, 41, 80, 0.18);
+}
+.swan-polaroid-slot--1:hover .swan-polaroid {
+  transform: translate(0, -55px);
+  box-shadow: 0 28px 60px -14px rgba(31, 41, 80, 0.32),
+    0 8px 18px -4px rgba(31, 41, 80, 0.18);
+}
+.swan-polaroid-slot--2:hover .swan-polaroid {
+  transform: translate(18px, -55px);
+  box-shadow: 0 28px 60px -14px rgba(31, 41, 80, 0.32),
+    0 8px 18px -4px rgba(31, 41, 80, 0.18);
+}
+.swan-polaroid figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.5rem;
+  text-align: center;
+  font-family: var(--font-cursive);
+  font-size: clamp(1.1rem, 1.4vw, 1.5rem);
+  color: #1f2950;
+  letter-spacing: 0.01em;
+}
+
+/* ---- Body notes — hero display font ---- */
+.swan-note {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.45;
+  color: #1f2950;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+.swan-note--tl {
+  position: absolute;
+  top: clamp(0.5rem, 2vh, 1.5rem);
+  left: clamp(2rem, 5vw, 5rem);
+  max-width: 240px;
+  z-index: 20;
+}
+.swan-note--tr {
+  position: absolute;
+  top: clamp(11rem, 22vh, 18rem);
+  right: clamp(2rem, 5vw, 5rem);
+  max-width: 240px;
+  text-align: right;
+  z-index: 20;
+}
+.swan-note--bl {
+  position: absolute;
+  bottom: clamp(2rem, 4vh, 3.5rem);
+  left: clamp(2rem, 5vw, 5rem);
+  max-width: 320px;
+  z-index: 20;
+}
+
+/* ---- Big title (caps + script overlap) ---- */
+.swan-title {
+  position: relative;
+  margin: clamp(-3rem, -4vh, -2rem) 0 0;
+  display: block;
+  text-align: left;
+  line-height: 0.9;
+  color: #6a232c;
+  z-index: 20;
+}
+.swan-title-caps {
+  display: block;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 0, 'WONK' 0;
+  font-size: clamp(4rem, 11vw, 12rem);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  margin-left: clamp(0rem, 1.5vw, 2rem);
+}
+
+.swan-title-sub {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.45;
+  color: #1f2950;
+  margin: 0.4rem 0 0 clamp(0.5rem, 2vw, 2.5rem);
+  max-width: 360px;
+  letter-spacing: -0.005em;
+}
+
+/* "Atelier" script + small sub-line, anchored on the right but pulled
+   in a touch so the script doesn't bleed past the viewport edge. */
+.swan-script-block {
+  position: absolute;
+  right: clamp(2rem, 5vw, 5rem);
+  top: clamp(14vh, 26vh, 32vh);
+  z-index: 20;
+  pointer-events: none;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: #6a232c;
+}
+.swan-title-script {
+  display: block;
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: clamp(7rem, 17vw, 20rem);
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.swan-script-sub {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.45;
+  color: #1f2950;
+  /* Pulled tight under the script so Heritage hugs the bottom of "Atelier" */
+  margin: -3rem clamp(0.5rem, 2vw, 2.5rem) 0 0;
+  max-width: 320px;
+  letter-spacing: -0.005em;
+  text-align: right;
+}
+
+/* ---- Centered welcome block — blurs to clarity on scroll, stays put ---- */
+.swan-welcome {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: min(820px, 92vw);
+  text-align: center;
+  z-index: 50;
+  color: #1f2950;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  pointer-events: none;
+}
+
+/* Standalone "Welcome to Evara" eyebrow — sits high enough to overlap
+   the polaroid stack vertically, with a low z-index so the polaroids
+   cover it (peeks out around the edges of the cards). */
+.swan-welcome-tag {
+  position: absolute;
+  left: 50%;
+  top: -38vh;
+  transform: translate(-50%, 0);
+  z-index: 4;
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1vw, 1.05rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--moss);
+  opacity: 0.9;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.swan-welcome > * {
+  pointer-events: auto;
+}
+.swan-welcome-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1vw, 1.05rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--moss);
+  opacity: 0.85;
+}
+.swan-welcome-headline {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(3.4rem, 6.4vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-weight: 400;
+  color: #1f2950;
+}
+.swan-welcome-body {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 14, 'wght' 380, 'SOFT' 60, 'WONK' 0;
+  font-size: clamp(1.25rem, 1.55vw, 1.6rem);
+  line-height: 1.55;
+  margin: 0;
+  color: #1f2950;
+  opacity: 0.82;
+  letter-spacing: -0.005em;
+}
+.swan-welcome-cta {
+  margin-top: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  background: transparent;
+  color: #6a232c;
+  border: 1px solid #6a232c;
+  border-radius: 999px;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.4s var(--ease-out-expo),
+    background 0.4s var(--ease-out-expo),
+    color 0.4s var(--ease-out-expo);
+}
+.swan-welcome-cta:hover {
+  background: #6a232c;
+  color: #f0e9da;
+  transform: translateY(-2px);
+}
+
+/* ---- Paper texture spans the section, overlaying the hero above
+   it as well so the paper feels continuous from the previous section. ---- */
+/* Paper texture — bottom edge fades through its own alpha mask so it
+   blends seamlessly into the section bg with no horizontal seam. */
+.swan-paper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -25vh;
+  width: 100%;
+  height: 95vh;
+  object-fit: cover;
+  object-position: top;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.6) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    rgba(0, 0, 0, 0.6) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Hidden — replaced by the alpha mask on .swan-paper above. */
+.swan-paper-fade {
+  display: none;
+}
+
+/* ---- Scroll indicator ---- */
+.swan-scroll {
+  position: absolute;
+  bottom: clamp(3rem, 6vh, 5rem);
+  right: clamp(2rem, 5vw, 5rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #1f2950;
+  z-index: 3;
+}
+
+
+@media (max-width: 1024px) {
+  .swan-note--tl {
+    top: 4rem;
+    max-width: 200px;
+  }
+  .swan-note--tr {
+    top: auto;
+    bottom: 38%;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .swan {
+    padding: 3rem 1.4rem 4rem;
+  }
+  .swan-polaroids {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .swan-polaroid {
+    transform: none !important;
+    padding: 0.7rem 0.7rem 2rem;
+  }
+  .swan-polaroid img {
+    width: 70vw;
+    height: 80vw;
+  }
+  .swan-note--tl,
+  .swan-note--tr,
+  .swan-note--bl {
+    position: static;
+    max-width: none;
+    text-align: center;
+    margin: 1.6rem auto;
+  }
+  .swan-title-caps {
+    font-size: clamp(3rem, 14vw, 5rem);
+    margin-left: 0;
+    text-align: center;
+  }
+  .swan-title-script {
+    font-size: clamp(4.5rem, 22vw, 9rem);
+    margin-left: 0;
+    margin-top: -1.5rem;
+    text-align: center;
+  }
+  .swan-feather {
+    display: none;
+  }
+  .swan-scroll {
+    position: static;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "evara",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "frames": "mkdir -p public/frames/footer public/frames/footer/sm && ffmpeg -y -i asset/footer.mp4 -vf scale=1920:-2:flags=lanczos -q:v 4 -start_number 1 public/frames/footer/%04d.jpg && ffmpeg -y -i asset/footer.mp4 -vf scale=960:-2:flags=lanczos -q:v 5 -start_number 1 public/frames/footer/sm/%04d.jpg"
+  },
+  "dependencies": {
+    "animejs": "^3.2.2",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "split-type": "^0.3.4",
+    "three": "^0.169.0",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/drei": "^9.114.0"
+  },
+  "devDependencies": {
+    "@types/animejs": "^3.1.12",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.169.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
