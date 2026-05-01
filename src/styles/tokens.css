@@ -91,4 +91,15 @@
   /* Easing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* "Studio" palette aliases — mapped to Evara navy + paper so
+     ported reference CSS (.studio, .how-we-work, .spotlight, etc.)
+     reads as a dark navy section without per-rule rewrites. */
+  --base-100: #f4efe6; /* paper, primary on dark */
+  --base-200: #d9cdb4; /* sand */
+  --base-300: #b9a98a; /* muted body */
+  --base-350: #a89a7e;
+  --base-400: #8b7d63; /* secondary copy on dark */
+  --base-450: #0e2a47; /* card surface — navy lifted */
+  --base-500: #001628; /* deep navy bg */
 }

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from '../lib/gsap';
 import './Header.css';
 
 export default function Header() {
   const headerRef = useRef<HTMLElement>(null);
-  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const header = headerRef.current;
@@ -58,46 +58,26 @@ export default function Header() {
     };
   }, []);
 
-  // Collapse if user clicks outside the pill
-  useEffect(() => {
-    if (!expanded) return;
-    const onDoc = (e: MouseEvent) => {
-      if (!headerRef.current?.contains(e.target as Node)) {
-        setExpanded(false);
-      }
-    };
-    document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
-  }, [expanded]);
-
   return (
-    <header ref={headerRef} className={`site-header ${expanded ? 'is-expanded' : ''}`}>
+    <header ref={headerRef} className="site-header">
       <div className="header-pill">
-        <nav className="header-nav header-nav--left" aria-hidden={!expanded}>
-          <a href="#stories">Stories</a>
-          <a href="#weddings">Weddings</a>
-          <a href="#escapes">Escapes</a>
+        <nav className="header-nav header-nav--left">
+          <Link to="/about">About</Link>
+          <Link to="/services">Services</Link>
         </nav>
 
-        <button
-          type="button"
-          className="brand-mark"
-          onClick={() => setExpanded((v) => !v)}
-          aria-expanded={expanded}
-          aria-label="Toggle navigation"
-        >
+        <Link to="/" className="brand-mark" aria-label="Evara — go to home">
           <img
             className="brand-logo"
             src="/images/evara-logo.png"
             alt="Evara Weddings"
             draggable={false}
           />
-        </button>
+        </Link>
 
-        <nav className="header-nav header-nav--right" aria-hidden={!expanded}>
-          <a href="#atelier">Atelier</a>
-          <a href="#journal">Journal</a>
-          <a href="#contact">Contact</a>
+        <nav className="header-nav header-nav--right">
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/contact">Contact</Link>
         </nav>
       </div>
     </header>

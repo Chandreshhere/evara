@@ -1,0 +1,363 @@
+/* ============================================================
+   Gallery — drag-pannable masonry archive
+   Mapped to brand tokens: navy field (--ink) with gold copy and
+   warm dimming on the imagery so the wedding-archive mood reads
+   like the rest of the site rather than a generic dark canvas.
+   ============================================================ */
+
+.gallery-page {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  color: var(--bone);
+  overflow: hidden;
+}
+
+.gallery-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  cursor: grab;
+  background: var(--ink);
+}
+
+.gallery-container.is-grabbing {
+  cursor: grabbing;
+}
+
+.canvas {
+  position: absolute;
+  will-change: transform;
+}
+
+.gallery-container .item {
+  position: absolute;
+  width: 170px;
+  height: 230px;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  background: var(--brand-navy-deep);
+}
+
+.gallery-container .item img {
+  opacity: 0.78;
+  transition: opacity 0.4s var(--ease-out-expo),
+    filter 0.4s var(--ease-out-expo);
+}
+
+.gallery-container .item:hover img {
+  opacity: 1;
+  filter: contrast(1.05) saturate(1.05);
+}
+
+.expanded-item {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--brand-navy-deep);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55),
+    0 8px 24px -8px rgba(0, 0, 0, 0.35);
+}
+
+.expanded-item img {
+  filter: contrast(1.05);
+  opacity: 0.96;
+}
+
+.gallery-container img,
+.expanded-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ink);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  z-index: 2;
+}
+
+.overlay.active {
+  pointer-events: auto;
+  opacity: 0.92;
+}
+
+/* Floating page label in the bottom-left — quiet anchor so the visitor
+   knows where they are while dragging the field. */
+.gallery-label {
+  position: fixed;
+  bottom: clamp(1.25rem, 3vh, 2rem);
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 5;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-family: var(--font-body);
+  color: var(--bone);
+}
+
+.gallery-label__eyebrow {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.85;
+}
+
+.gallery-label__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Hint in the bottom-right — disappears on touch screens. */
+.gallery-hint {
+  position: fixed;
+  bottom: clamp(1.25rem, 3vh, 2rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  z-index: 5;
+  pointer-events: none;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.55;
+}
+
+@media (hover: none) {
+  .gallery-hint {
+    display: none;
+  }
+}
+
+/* Centered project title — clipped to the height of one line so the
+   word stagger animates cleanly in/out from above & below. */
+.project-title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.project-title p {
+  position: relative;
+  height: 4rem;
+  margin: 0;
+  color: var(--bone);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.project-title p .word {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  margin-right: 0.18em;
+  transform: translateY(0%);
+  will-change: transform;
+}
+
+/* ============================================================
+   Editorial side copy — magazine-style overlays revealed when an
+   image is opened. Sit fixed in the page margins so they read as
+   a spread around the centered photo. Default opacity:0; GSAP
+   fades them in/out alongside the expand/close animation.
+   ============================================================ */
+
+.editorial {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 18;
+  opacity: 0;
+}
+
+.editorial__top,
+.editorial__bottom {
+  position: absolute;
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0.7;
+}
+
+.editorial__top {
+  top: clamp(1.5rem, 4vh, 2.5rem);
+  border-top: 1px solid rgba(244, 239, 230, 0.25);
+  padding-top: 0.6rem;
+}
+
+.editorial__bottom {
+  bottom: clamp(1.5rem, 4vh, 2.5rem);
+  border-bottom: 1px solid rgba(244, 239, 230, 0.25);
+  padding-bottom: 0.6rem;
+  flex-direction: row-reverse;
+}
+
+.editorial__left,
+.editorial__right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(180px, 22vw, 320px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--bone);
+}
+
+.editorial__left {
+  left: clamp(1.25rem, 4vw, 2.5rem);
+  text-align: left;
+}
+
+.editorial__right {
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  text-align: right;
+  align-items: flex-end;
+}
+
+.editorial__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.editorial__eyebrow-rule {
+  width: 1.4rem;
+  height: 1px;
+  background: var(--gold-light);
+  opacity: 0.7;
+}
+
+.editorial__caption {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.35;
+  color: var(--bone);
+  margin: 0;
+  opacity: 0.95;
+}
+
+.editorial__body {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--bone);
+  margin: 0;
+  opacity: 0.78;
+  max-width: 30ch;
+}
+
+.editorial__credit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.editorial__credit-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  opacity: 0.85;
+}
+
+.editorial__credit-value {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--bone);
+}
+
+@media (max-width: 1000px) {
+  .gallery-container .item {
+    width: 130px;
+    height: 176px;
+  }
+  .project-title p {
+    height: 3rem;
+  }
+  .project-title p .word {
+    font-size: 1.8rem;
+  }
+
+  /* Side columns won't fit on phones — collapse to top + bottom strips so
+     the image still reads big without the text crowding it. */
+  .editorial__left,
+  .editorial__right {
+    position: static;
+    transform: none;
+    width: auto;
+    text-align: left;
+    align-items: flex-start;
+    padding: 0 clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .editorial__left {
+    position: absolute;
+    top: clamp(4rem, 9vh, 6rem);
+    left: 0;
+    right: 0;
+    gap: 0.5rem;
+  }
+
+  .editorial__right {
+    position: absolute;
+    bottom: clamp(4rem, 9vh, 6rem);
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem 1.4rem;
+  }
+
+  .editorial__caption {
+    font-size: 1rem;
+  }
+
+  .editorial__body {
+    display: none;
+  }
+}

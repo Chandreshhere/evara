@@ -1,0 +1,858 @@
+/* =============================================================
+   Services — bone background to match home, navy ink, gold accents.
+   Awards-style: pinned hero, horizontal showcase, morphing type,
+   marquee strip, magnetic CTA.
+   ============================================================= */
+
+.svc {
+  background: var(--bone);
+  color: var(--brand-navy);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- HERO ---------- */
+.svc-hero {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(8rem, 14vh, 12rem) clamp(2rem, 5vw, 5rem) 4rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  isolation: isolate;
+  background: var(--bone);
+}
+
+.svc-hero-paper {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Four corner image tiles — fly out as the user scrolls (mirrors the
+   Home page hero takeover, minus the canvas video). */
+.svc-hero-tile {
+  position: absolute;
+  margin: 0;
+  width: clamp(160px, 18vw, 280px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0 22px 50px -22px rgba(0, 34, 63, 0.45);
+  background: var(--cream);
+  z-index: 1;
+  will-change: transform, opacity;
+}
+.svc-hero-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.05) saturate(0.95);
+  transform: scale(1.08);
+}
+.svc-hero-tile--tl {
+  top: 12vh;
+  left: clamp(1rem, 4vw, 4rem);
+}
+.svc-hero-tile--tr {
+  top: 10vh;
+  right: clamp(1rem, 4vw, 4rem);
+}
+.svc-hero-tile--bl {
+  bottom: 8vh;
+  left: clamp(1rem, 6vw, 6rem);
+}
+.svc-hero-tile--br {
+  bottom: 10vh;
+  right: clamp(1rem, 6vw, 6rem);
+}
+.svc-hero-paper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    #000 30%,
+    rgba(0, 0, 0, 0.4) 70%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 90% 80% at 50% 50%,
+    #000 30%,
+    rgba(0, 0, 0, 0.4) 70%,
+    transparent 100%
+  );
+}
+
+.svc-hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: clamp(1.2rem, 3vh, 2rem);
+  z-index: 2;
+}
+.svc-hero-eyebrow span {
+  margin: 0 0.6em;
+  color: var(--gold-warm);
+}
+
+.svc-hero-head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.6vw, 7.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin: 0 auto;
+  max-width: 14ch;
+  color: var(--brand-navy);
+  z-index: 2;
+  position: relative;
+}
+.svc-hero-head .word,
+.svc-hero-head .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+.svc-hero-head .line {
+  display: block;
+  overflow: hidden;
+}
+
+.svc-hero-sub {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: clamp(1.5rem, 3vh, 2.4rem) auto 0;
+  z-index: 2;
+  position: relative;
+}
+.svc-hero-sub .word {
+  display: inline-block;
+}
+.svc-hero-sub .line {
+  display: block;
+  overflow: hidden;
+}
+
+.svc-hero-rule {
+  width: clamp(80px, 14vw, 220px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-warm) 50%,
+    transparent 100%
+  );
+  margin: clamp(1.6rem, 3vh, 2.4rem) auto;
+  z-index: 2;
+  position: relative;
+}
+
+.svc-hero-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 1rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 0.85vw, 0.9rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brand-navy);
+  opacity: 0.75;
+  z-index: 2;
+  position: relative;
+}
+
+/* ---------- HORIZONTAL PINNED SHOWCASE ---------- */
+.svc-showcase {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bone);
+  isolation: isolate;
+  /* Soft top-edge shadow + subtle shape so the section reads as a
+     card rising up over the hero before the horizontal pin engages. */
+  box-shadow: 0 -28px 60px -24px rgba(0, 34, 63, 0.18);
+}
+.svc-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-warm) 50%,
+    transparent 100%
+  );
+  opacity: 0.5;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.svc-showcase-rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: clamp(1rem, 3vh, 2rem) clamp(2rem, 5vw, 5rem);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--brand-navy);
+  pointer-events: none;
+}
+.svc-showcase-eyebrow em {
+  font-style: normal;
+  color: var(--gold-deep);
+  font-size: 1.2em;
+  letter-spacing: 0.18em;
+}
+.svc-showcase-current {
+  justify-self: end;
+  font-family: var(--font-italic);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition: opacity 0.3s var(--ease-out-expo);
+}
+
+.svc-progress {
+  position: absolute;
+  bottom: clamp(1rem, 3vh, 2rem);
+  left: clamp(2rem, 5vw, 5rem);
+  right: clamp(2rem, 5vw, 5rem);
+  height: 1px;
+  background: rgba(0, 34, 63, 0.12);
+  z-index: 5;
+  overflow: hidden;
+}
+.svc-progress-bar {
+  position: absolute;
+  inset: 0;
+  background: var(--gold-gradient);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.svc-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 clamp(2rem, 5vw, 5rem);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  will-change: transform;
+}
+
+.svc-card {
+  flex: 0 0 auto;
+  width: clamp(560px, 56vw, 820px);
+  height: 76vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: clamp(1.2rem, 2.4vh, 2rem);
+  position: relative;
+}
+
+.svc-card--intro,
+.svc-card--outro {
+  width: clamp(420px, 36vw, 560px);
+  display: grid;
+  align-content: center;
+  height: 76vh;
+}
+
+.svc-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  text-align: left;
+  padding: 2rem;
+  border-left: 1px solid rgba(0, 34, 63, 0.18);
+}
+.svc-intro-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.svc-intro-head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5.4vw, 4.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+  margin: 0;
+}
+.svc-intro-head em {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  color: var(--gold-deep);
+  font-size: 1.2em;
+}
+.svc-intro-body {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 32ch;
+}
+.svc-intro-arrow {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  color: var(--gold-deep);
+  font-family: var(--font-display);
+  margin-top: 0.6rem;
+}
+.svc-intro-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.2rem;
+  background: var(--brand-navy);
+  color: var(--bone);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: transform 0.4s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo);
+}
+.svc-intro-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px -16px rgba(0, 34, 63, 0.55);
+}
+
+.svc-card-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  height: 100%;
+  border-radius: 2px;
+}
+.svc-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform, filter;
+}
+.svc-card-cover {
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: top center;
+  /* Default to retracted so images are visible even if GSAP's
+     fromTo({scaleY:1}, {scaleY:0}) reveal never fires (route swap,
+     pin-spacer timing race, ScrollTrigger.kill side-effect). The
+     fromTo still re-sets scaleY:1 and animates to 0 in the happy
+     path, so the reveal plays whenever GSAP is healthy. */
+  transform: scaleY(0);
+}
+.svc-card-stamp {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.4rem;
+  z-index: 3;
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+}
+
+.svc-card-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 0.4rem 1.4rem;
+  align-items: end;
+}
+.svc-card-num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 4.4vw, 4.4rem);
+  line-height: 0.9;
+  color: var(--gold-deep);
+  grid-row: 1 / span 4;
+  grid-column: 1;
+  letter-spacing: -0.02em;
+  display: inline-block;
+  overflow: hidden;
+}
+.svc-card-chapter {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-warm);
+  grid-column: 2;
+}
+.svc-card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--brand-navy);
+  margin: 0;
+  grid-column: 2;
+}
+.svc-card-title .word {
+  display: inline-block;
+  overflow: hidden;
+}
+.svc-card-sub {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0;
+  grid-column: 2;
+}
+.svc-card-meta {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+.svc-card-meta p {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--brand-navy);
+  opacity: 0.78;
+  margin: 0;
+  max-width: 46ch;
+}
+.svc-card-link {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.4s var(--ease-out-expo), color 0.3s var(--ease-out-expo);
+}
+.svc-card-link:hover {
+  gap: 1rem;
+  color: var(--brand-navy);
+}
+
+/* ---------- AWARDS — morphing massive type ---------- */
+.svc-awards {
+  position: relative;
+  min-height: 100vh;
+  background: var(--bone);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(5rem, 12vh, 9rem) clamp(2rem, 5vw, 5rem);
+  overflow: hidden;
+  isolation: isolate;
+  gap: clamp(1rem, 2.4vh, 2rem);
+}
+.svc-awards::before {
+  content: '';
+  position: absolute;
+  inset: -10% -5%;
+  background: radial-gradient(
+    ellipse 50% 50% at 50% 60%,
+    rgba(154, 97, 0, 0.12) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Slow-rotating gold ornament — sets the editorial tone without
+   relying on an image asset. */
+.svc-awards-stamp {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  line-height: 1;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
+  z-index: 2;
+  position: relative;
+  will-change: transform;
+}
+
+/* Eyebrow flanked by gold hairlines */
+.svc-awards-eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  gap: clamp(0.6rem, 1.4vw, 1.2rem);
+}
+.svc-awards-eyebrow-line {
+  width: clamp(28px, 5vw, 60px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-warm) 50%,
+    transparent 100%
+  );
+}
+
+/* Hairline divider between sub-copy and the pillars */
+.svc-awards-divider {
+  display: block;
+  width: clamp(80px, 12vw, 180px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-warm) 50%,
+    transparent 100%
+  );
+  margin: clamp(2rem, 4vh, 3.4rem) auto 0;
+  z-index: 2;
+  position: relative;
+  opacity: 0.7;
+}
+.svc-awards-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: clamp(1.4rem, 3vh, 2.4rem);
+  z-index: 2;
+  position: relative;
+}
+.svc-awards-head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+  margin: 0;
+  z-index: 2;
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.4em;
+  max-width: 16ch;
+}
+
+.svc-awards-rotor {
+  position: relative;
+  display: inline-block;
+  height: 1em;
+  min-width: 6ch;
+  vertical-align: baseline;
+  overflow: hidden;
+  font-family: var(--font-cursive);
+  font-style: italic;
+  font-size: 1.2em;
+  line-height: 1;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.svc-awards-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.svc-awards-sub {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: clamp(1.4rem, 3vh, 2.4rem) auto 0;
+  z-index: 2;
+  position: relative;
+}
+
+.svc-pillars {
+  margin-top: clamp(2.5rem, 5vh, 4rem);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.2rem, 3vw, 3rem);
+  width: min(1100px, 92vw);
+  z-index: 2;
+  position: relative;
+  text-align: left;
+}
+.svc-pillar {
+  position: relative;
+  border-top: 1px solid rgba(0, 34, 63, 0.18);
+  padding: 1.1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  transition: border-color 0.4s var(--ease-out-expo);
+}
+.svc-pillar:hover {
+  border-top-color: var(--gold-warm);
+}
+.svc-pillar-num {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--gold-deep);
+  opacity: 0.7;
+  margin-bottom: 0.1rem;
+}
+.svc-pillar-k {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.svc-pillar-v {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  line-height: 1.45;
+  color: var(--brand-navy);
+}
+
+
+/* ---------- CTA ---------- */
+.svc-cta {
+  position: relative;
+  padding: clamp(6rem, 14vh, 12rem) clamp(2rem, 5vw, 5rem);
+  text-align: center;
+  background: var(--bone);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  isolation: isolate;
+}
+.svc-cta::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 4rem;
+  transform: translateX(-50%);
+  width: clamp(160px, 24vw, 320px);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-warm) 50%,
+    transparent 100%
+  );
+}
+.svc-cta-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.9vw, 0.95rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 1rem;
+}
+.svc-cta-head {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+  margin: 0;
+  max-width: 16ch;
+}
+.svc-cta-head em {
+  font-family: var(--font-cursive);
+  font-style: italic;
+  color: var(--gold-deep);
+  font-size: 1.2em;
+}
+.svc-cta-sub {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 48ch;
+  margin: 0.5rem auto 2rem;
+}
+.svc-cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.3rem 2.8rem;
+  background: var(--brand-navy);
+  color: var(--bone);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.45s var(--ease-out-expo);
+}
+.svc-cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-gradient);
+  z-index: -1;
+  transform: translateY(101%);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.svc-cta-button:hover {
+  color: var(--brand-navy);
+}
+.svc-cta-button:hover::before {
+  transform: translateY(0);
+}
+.svc-cta-arrow {
+  font-family: var(--font-display);
+  font-size: 1.1em;
+  transition: transform 0.45s var(--ease-out-expo);
+}
+.svc-cta-button:hover .svc-cta-arrow {
+  transform: translateX(6px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .svc-hero {
+    padding-top: 8rem;
+  }
+  .svc-hero-tile {
+    width: clamp(110px, 28vw, 170px);
+  }
+  .svc-hero-tile--tl { top: 8vh; left: 0.5rem; }
+  .svc-hero-tile--tr { top: 6vh; right: 0.5rem; }
+  .svc-hero-tile--bl { bottom: 4vh; left: 0.5rem; }
+  .svc-hero-tile--br { bottom: 6vh; right: 0.5rem; }
+
+  .svc-showcase {
+    height: auto;
+    padding: 4rem 1.2rem;
+    overflow: visible;
+  }
+  .svc-showcase-rail {
+    position: relative;
+    padding: 0 0 1.6rem;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .svc-showcase-current {
+    justify-self: center;
+  }
+  .svc-progress {
+    position: relative;
+    inset: auto;
+    margin-bottom: 2rem;
+  }
+  .svc-track {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    gap: 3rem;
+    transform: none !important;
+  }
+  .svc-card,
+  .svc-card--intro,
+  .svc-card--outro {
+    width: 100%;
+    height: auto;
+    grid-template-rows: 60vh auto;
+  }
+  .svc-card-body {
+    grid-template-columns: auto 1fr;
+  }
+
+  .svc-awards {
+    height: auto;
+    padding: 6rem 1.5rem 8rem;
+  }
+  .svc-pillars {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+  }
+  .svc-awards-eyebrow-line {
+    width: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .svc-hero-meta {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    gap: 0.4rem 0.6rem;
+  }
+  .svc-pillars {
+    grid-template-columns: 1fr;
+  }
+  .svc-card {
+    grid-template-rows: 52vh auto;
+  }
+  .svc-card-num {
+    font-size: 2.6rem;
+  }
+}

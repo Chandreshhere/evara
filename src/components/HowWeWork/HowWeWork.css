@@ -1,0 +1,191 @@
+.how-we-work {
+  position: relative;
+  width: 100%;
+  color: var(--ink);
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: clamp(4rem, 10svh, 8rem) 0;
+}
+
+.how-we-work-header {
+  position: sticky;
+  top: 8rem;
+  align-self: start;
+  height: fit-content;
+}
+
+.how-we-work-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.how-we-work-eyebrow {
+  margin: 0;
+  color: var(--gold-deep);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.how-we-work-heading {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  line-height: 1.2;
+  max-width: 28ch;
+}
+
+/* Track + step list. The rail is a faint full-height vertical line;
+   the fill scales from 0 to 1 in scaleY based on the --progress CSS
+   var written in JS by the ScrollTrigger onUpdate. */
+.how-we-work-track {
+  position: relative;
+  --progress: 0;
+  padding-left: 2rem;
+}
+
+.how-we-work-track-rail,
+.how-we-work-track-fill {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.how-we-work-track-rail {
+  background: rgba(180, 121, 35, 0.22);
+}
+
+.how-we-work-track-fill {
+  background: var(--gold-gradient);
+  transform-origin: top;
+  transform: scaleY(var(--progress));
+  transition: transform 0.18s linear;
+}
+
+.how-we-work-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.how-we-work-list-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  transition: opacity 0.35s var(--ease-out-expo);
+  opacity: 0.55;
+}
+
+.how-we-work-list-item.is-active {
+  opacity: 1;
+}
+
+.how-we-work-list-num {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-deep);
+  min-width: 1.6rem;
+}
+
+.how-we-work-list-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.how-we-work-list-item.is-active .how-we-work-list-title {
+  color: var(--gold-deep);
+}
+
+/* Right column — cards stack vertically and scroll up past the
+   sticky left column. */
+.how-we-work-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.how-we-work-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--cream);
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(180, 121, 35, 0.25);
+}
+
+.how-we-work-card-img {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--sand);
+}
+
+.how-we-work-card-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.how-we-work-card-copy {
+  padding: 0.5rem 0.5rem 1rem;
+}
+
+.how-we-work-card-num {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-deep);
+  margin-bottom: 0.75rem;
+}
+
+.how-we-work-card-copy h4 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.how-we-work-card-copy p {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  line-height: 1.65;
+  max-width: 60ch;
+}
+
+@media (max-width: 1000px) {
+  .how-we-work {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .how-we-work-header {
+    position: static;
+  }
+  .how-we-work-track {
+    padding-left: 1.5rem;
+  }
+}

@@ -100,7 +100,14 @@
       // scroll position on reload — that restore briefly paints lower
       // sections over the hero before our React reset snaps us back.
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      document.documentElement.classList.add('evara-loading');
+      // The `evara-loading` class freezes scroll and hides every non-hero
+      // section (see <style> above) so the Home page can boot without
+      // flashing lower sections over the hero. Other routes don't have a
+      // hero — adding the class there would lock them in a hidden,
+      // unscrollable state until something clears it. Only set on "/".
+      if (location.pathname === '/' || location.pathname === '') {
+        document.documentElement.classList.add('evara-loading');
+      }
       try { window.scrollTo(0, 0); } catch (e) {}
     </script>
 

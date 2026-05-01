@@ -27,7 +27,8 @@
   transition: gap 0.55s cubic-bezier(0.34, 1.2, 0.64, 1),
     padding 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
-.site-header.is-expanded .header-pill {
+.header-pill:hover,
+.header-pill:focus-within {
   gap: 1.6rem;
   padding: 0.55rem 1.6rem;
 }
@@ -40,6 +41,7 @@
   padding: 0 0.4rem;
   display: inline-flex;
   align-items: center;
+  text-decoration: none;
   transition: opacity 0.3s var(--ease-out-expo);
 }
 .brand-mark:hover {
@@ -50,7 +52,6 @@
   height: clamp(32px, 3.4vh, 42px);
   width: auto;
   user-select: none;
-  pointer-events: none;
 }
 
 /* Each nav side is collapsed to zero-width by default; on .is-expanded
@@ -78,7 +79,8 @@
 .header-nav--right {
   justify-content: flex-start;
 }
-.site-header.is-expanded .header-nav {
+.header-pill:hover .header-nav,
+.header-pill:focus-within .header-nav {
   max-width: 280px;
   width: 280px;
   opacity: 1;
@@ -118,7 +120,8 @@
     font-size: 0.7rem;
     gap: 1rem;
   }
-  .site-header.is-expanded .header-nav {
+  .header-pill:hover .header-nav,
+  .header-pill:focus-within .header-nav {
     max-width: 200px;
     width: 200px;
   }
