@@ -7,27 +7,27 @@ const TILES = [
   {
     pos: 'top-left',
     src: '/images/1.jpeg',
-    alt: 'Wedding moment one',
+    alt: 'Royal Indian bride in Udaipur palace setting',
   },
   {
     pos: 'top-center',
     src: '/images/2.jpeg',
-    alt: 'Wedding moment two',
+    alt: 'Editorial bridal portrait by Evara Weddings',
   },
   {
     pos: 'top-right',
     src: '/images/3.jpeg',
-    alt: 'Wedding moment three',
+    alt: 'Indian wedding mandap ceremony at golden hour',
   },
   {
     pos: 'bottom-left',
     src: '/images/4.jpeg',
-    alt: 'Wedding moment four',
+    alt: 'Couple portrait at a Rajasthan destination wedding',
   },
   {
     pos: 'bottom-right',
     src: '/images/5.jpeg',
-    alt: 'Wedding moment five',
+    alt: 'Floral decor detail from an Evara wedding celebration',
   },
 ];
 
@@ -292,18 +292,24 @@ export default function Hero() {
       {/* Botanical flowers framing the video — left + right.
           Wipe-reveal from top → bottom in lockstep with the takeover
           scroll, so they appear "drawn" as the video zooms and lifts. */}
-      <img
-        className="hero-flower hero-flower--left"
-        src="/images/flower.png"
-        alt=""
-        aria-hidden
-      />
-      <img
-        className="hero-flower hero-flower--right"
-        src="/images/flower.png"
-        alt=""
-        aria-hidden
-      />
+      <picture>
+        <source srcSet="/images/flower.avif" type="image/avif" />
+        <img
+          className="hero-flower hero-flower--left"
+          src="/images/flower.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
+      <picture>
+        <source srcSet="/images/flower.avif" type="image/avif" />
+        <img
+          className="hero-flower hero-flower--right"
+          src="/images/flower.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
 
       <div className="hero-grid">
         {TILES.map((t) => {
@@ -317,7 +323,15 @@ export default function Hero() {
               data-dx={dx}
               data-dy={dy}
             >
-              <img src={t.src} alt={t.alt} />
+              <img
+                src={t.src}
+                alt={t.alt}
+                width="720"
+                height="900"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+              />
             </figure>
           );
         })}

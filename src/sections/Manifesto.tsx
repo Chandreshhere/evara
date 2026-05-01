@@ -5,20 +5,20 @@ import './Manifesto.css';
 const PHOTOS = [
   {
     src: '/images/9.jpeg',
-    alt: 'Wedding moment',
+    alt: 'Polaroid of an Evara royal wedding ceremony',
     rotate: -6,
     translate: '40px, -10px',
   },
   {
     src: '/images/8.jpeg',
-    alt: 'Wedding moment',
+    alt: 'Editorial portrait of a couple at their Indian wedding',
     rotate: 0,
     translate: '0, 22px',
     caption: 'love is in the air',
   },
   {
     src: '/images/10.jpeg',
-    alt: 'Wedding moment',
+    alt: 'Bridal florals styled by the Evara atelier',
     rotate: 5,
     translate: '-30px, 0',
   },
@@ -38,8 +38,8 @@ function MarqueeRow() {
   return (
     <>
       {MARQUEE.map((src, i) => (
-        <figure className="swan-marquee__item" key={`${src}-${i}`}>
-          <img src={src} alt="" loading="lazy" />
+        <figure className="swan-marquee__item" key={`${src}-${i}`} aria-hidden="true">
+          <img src={src} alt="" aria-hidden="true" loading="lazy" />
         </figure>
       ))}
     </>
@@ -90,12 +90,15 @@ export default function Manifesto() {
 
   return (
     <section ref={sectionRef} className="swan" id="philosophy">
-      <img
-        className="swan-paper"
-        src="/images/paper.png"
-        alt=""
-        aria-hidden
-      />
+      <picture>
+        <source srcSet="/images/paper.avif" type="image/avif" />
+        <img
+          className="swan-paper"
+          src="/images/paper.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
       <div className="swan-paper-fade" aria-hidden />
 
       {/* Atelier + Heritage sub — commented out for now, keeping copy for re-use elsewhere

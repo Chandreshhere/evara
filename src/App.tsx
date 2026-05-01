@@ -48,7 +48,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <Manifesto />
         <Pause />

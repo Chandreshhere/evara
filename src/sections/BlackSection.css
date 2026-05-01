@@ -310,3 +310,67 @@
   align-self: center;
 }
 
+/* Mobile — keep the same 3D drum carousel; the JS recalculates radius
+   and cardWidth on resize. Just shrink the headline + foot text and
+   stack the body paragraphs so they don't overflow the viewport. */
+@media (max-width: 768px) {
+  .bs-section {
+    padding: 2.5rem 0 2rem;
+    min-height: 640px;
+  }
+  .bs-content {
+    padding: 0 1rem;
+  }
+  .bs-top {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    order: 1;
+  }
+  .bs-headline {
+    font-size: clamp(2rem, 9vw, 3rem);
+    white-space: normal;
+    line-height: 1.05;
+  }
+  /* Flatten .bs-foot so its children become direct children of
+     .bs-content's flex column. Lets us slot the "Twelve chapters"
+     paragraph immediately below the headline on mobile while keeping
+     the closing paragraph after the carousel. */
+  .bs-foot {
+    display: contents;
+  }
+  .bs-body {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    text-align: center !important;
+    flex: 1 1 auto;
+    max-width: 36ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .bs-body--left {
+    order: 2;
+    margin-bottom: 0;
+  }
+  .bs-track {
+    order: 3;
+    margin-top: -5rem;
+  }
+  .bs-body--right {
+    order: 4;
+    margin-top: 3rem;
+    margin-bottom: 2.5rem;
+  }
+  .bs-decor--bottom-left {
+    width: clamp(220px, 60vw, 360px);
+  }
+}
+
+@media (max-width: 480px) {
+  .bs-headline {
+    font-size: clamp(1.8rem, 10vw, 2.4rem);
+  }
+  .bs-body {
+    font-size: 0.8rem;
+  }
+}
+

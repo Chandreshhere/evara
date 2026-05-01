@@ -546,64 +546,130 @@ a.footer-contact-value:hover {
 }
 
 /* ---- Responsive ---- */
+/* Mobile — drop the absolute-corner placement of contact/social and
+   stack the four blocks (centered editorial → brand logo → contact →
+   social) vertically so nothing overlaps the centered headline. */
 @media (max-width: 768px) {
-  .footer-overlay {
-    padding: 1.6rem 1.4rem;
-    gap: 2rem;
-  }
-  .footer-top {
+  .footer-section {
+    min-height: auto;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    padding: 4.5rem 1.4rem 2rem;
+  }
+  /* Video keeps its absolute fill so it stays as the section bg. */
+  .footer-canvas-wrap {
+    inset: 0;
+  }
+  .footer-center {
+    position: relative;
+    inset: auto;
+    transform: none;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+  }
+  .footer-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.32em;
+    margin-bottom: 0.2rem;
   }
   .footer-title {
-    font-size: clamp(2.8rem, 15vw, 5rem);
+    font-size: clamp(2.4rem, 13vw, 4rem);
+    line-height: 0.95;
   }
-  .footer-lede {
-    font-size: 1rem;
+  .footer-signoff-line {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-top: 0.4rem;
+    max-width: 30ch;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .footer-info {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-    padding-top: 1.6rem;
-  }
-  .footer-col {
-    border-bottom: 1px solid rgba(244, 239, 230, 0.12);
-    padding-bottom: 1.2rem;
-  }
-  .footer-col:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-  }
-  .footer-base {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-    text-align: left;
-  }
-  .footer-base-center {
-    align-items: flex-start;
-    text-align: left;
-  }
-  .footer-base-right {
-    justify-content: flex-start;
-  }
-  .footer-mark-name {
-    font-size: 3rem;
-  }
-  .footer-contact,
-  .footer-social,
   .footer-brand-center {
-    position: static;
-    align-items: flex-start;
-    margin: 1.4rem 1.2rem 0;
-    transform: none;
+    display: none;
+  }
+  .footer-contact {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto 2rem;
+    gap: 1rem;
+    max-width: 100%;
+  }
+  .footer-contact-list {
+    gap: 1rem;
+    align-items: center;
+  }
+  .footer-contact-list li {
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+  }
+  .footer-contact-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+  }
+  .footer-contact-value {
+    font-size: 0.92rem;
+    line-height: 1.4;
   }
   .footer-social {
-    align-items: flex-start;
-    padding-bottom: 1.4rem;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-items: center;
+    margin: 0 auto;
+    gap: 0.8rem;
   }
-  .footer-social-list,
+  .footer-social-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+  }
+  .footer-social-list {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+  }
   .footer-social-list a {
-    align-items: flex-start;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    gap: 0;
+  }
+  .footer-social-list a svg {
+    width: 22px;
+    height: 22px;
+  }
+  .footer-social-list a span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-section {
+    padding: 3.5rem 1rem 1.5rem;
+  }
+  .footer-tag {
+    font-size: 0.55rem;
+  }
+  .footer-title {
+    font-size: clamp(2rem, 14vw, 3.2rem);
+  }
+  .footer-signoff-line {
+    font-size: 0.8rem;
+  }
+  .footer-contact-value {
+    font-size: 0.85rem;
+  }
+  .footer-social-list {
+    gap: 1.2rem;
+  }
+  .footer-social-list a svg {
+    width: 20px;
+    height: 20px;
   }
 }

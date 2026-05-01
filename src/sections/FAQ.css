@@ -438,27 +438,79 @@
   }
 }
 
+@media (max-width: 768px) {
+  .faq {
+    padding: 4rem 1.2rem 3.5rem;
+  }
+  .faq-eyebrow {
+    top: 1.2rem;
+    left: 1.2rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+  }
+  .faq-grid {
+    margin-top: 3.5rem;
+  }
+  .faq-portrait {
+    max-width: 320px;
+  }
+  .faq-portrait-frame img {
+    height: clamp(280px, 70vw, 420px);
+  }
+  .faq-headline {
+    font-size: clamp(2.2rem, 11vw, 3.6rem);
+  }
+  .faq-lede {
+    font-size: 0.95rem;
+  }
+  .faq-mark {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .faq {
-    padding: clamp(4rem, 9vh, 6rem) 1.4rem clamp(4rem, 8vh, 5rem);
+    padding: 3.5rem 1rem 3rem;
   }
   .faq-row {
     grid-template-columns: auto 1fr auto;
-    gap: 0.9rem;
+    gap: 0.7rem;
+    padding: 1.1rem 0.2rem;
+  }
+  .faq-num {
+    font-size: 1.1rem;
+  }
+  .faq-q {
+    font-size: 0.95rem;
+    line-height: 1.3;
   }
   .faq-panel-inner {
     grid-template-columns: 1fr;
     gap: 0;
+    padding: 0 0.2rem 1.1rem;
   }
   .faq-panel-inner::before {
     display: none;
   }
   .faq-a {
     grid-column: 1 / -1;
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
-  .faq-mark {
-    bottom: 1.4rem;
-    right: 1.4rem;
+  .faq-foot {
+    font-size: 0.92rem;
+  }
+  .faq-headline {
+    font-size: clamp(1.8rem, 12vw, 2.6rem);
+  }
+  .faq-portrait {
+    max-width: 260px;
+  }
+  .faq-portrait-frame {
+    padding: 0.7rem 0.7rem 2.8rem;
+  }
+  .faq-portrait-frame img {
+    height: clamp(240px, 70vw, 340px);
   }
 }
 

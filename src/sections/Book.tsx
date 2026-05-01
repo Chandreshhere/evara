@@ -21,27 +21,25 @@ export default function Book() {
   return (
     <section className="book" id="book">
       {/* <span className="book-eyebrow">Book your moment</span> */}
-      <img
-        className="book-stars"
-        src="/images/stars.png"
-        alt=""
-        aria-hidden
-      />
+      <picture>
+        <source srcSet="/images/stars.avif" type="image/avif" />
+        <img
+          className="book-stars"
+          src="/images/stars.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
 
       <div className="envelope">
-        <img
-          className="envelope-image"
-          src="/images/envelope.png"
-          alt="Open envelope with letter card"
-        />
-        {/* <button
-          type="button"
-          className="envelope-stamp"
-          onClick={() => setOpen(true)}
-          aria-label="Open contact form"
-        >
-          <img src="/images/decor-3.png" alt="" aria-hidden />
-        </button> */}
+        <picture>
+          <source srcSet="/images/enve.avif" type="image/avif" />
+          <img
+            className="envelope-image"
+            src="/images/enve.png"
+            alt="Open navy wedding envelope"
+          />
+        </picture>
         <div className="envelope-letter">
           <h2 className="book-headline">
             Begin your
@@ -110,24 +108,34 @@ function ContactModal({ onClose }: { onClose: () => void }) {
         <form className="contact-form" onSubmit={onSubmit}>
           <div className="contact-form__row">
             <div className="contact-form__field">
+              <label htmlFor="contact-firstName" className="sr-only">
+                First Name
+              </label>
               <input
+                id="contact-firstName"
                 className="contact-form__input"
                 type="text"
                 name="firstName"
                 placeholder="First Name"
                 value={form.firstName}
                 onChange={onChange}
+                autoComplete="given-name"
                 required
               />
             </div>
             <div className="contact-form__field">
+              <label htmlFor="contact-lastName" className="sr-only">
+                Last Name
+              </label>
               <input
+                id="contact-lastName"
                 className="contact-form__input"
                 type="text"
                 name="lastName"
                 placeholder="Last Name"
                 value={form.lastName}
                 onChange={onChange}
+                autoComplete="family-name"
                 required
               />
             </div>
@@ -135,30 +143,44 @@ function ContactModal({ onClose }: { onClose: () => void }) {
 
           <div className="contact-form__row">
             <div className="contact-form__field">
+              <label htmlFor="contact-phone" className="sr-only">
+                Phone
+              </label>
               <input
+                id="contact-phone"
                 className="contact-form__input"
                 type="tel"
                 name="phone"
                 placeholder="Phone"
                 value={form.phone}
                 onChange={onChange}
+                autoComplete="tel"
               />
             </div>
             <div className="contact-form__field">
+              <label htmlFor="contact-email" className="sr-only">
+                Email
+              </label>
               <input
+                id="contact-email"
                 className="contact-form__input"
                 type="email"
                 name="email"
                 placeholder="Email"
                 value={form.email}
                 onChange={onChange}
+                autoComplete="email"
                 required
               />
             </div>
           </div>
 
           <div className="contact-form__field">
+            <label htmlFor="contact-typeOfService" className="sr-only">
+              Type of Service
+            </label>
             <input
+              id="contact-typeOfService"
               className="contact-form__input"
               type="text"
               name="typeOfService"

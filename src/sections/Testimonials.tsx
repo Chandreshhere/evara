@@ -62,7 +62,7 @@ export default function Testimonials() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <h2 className="loves-title">Testimonials</h2>
+      <h2 className="loves-title">What couples say about their Evara wedding</h2>
 
       <div className="loves-gallery" aria-hidden>
         <button

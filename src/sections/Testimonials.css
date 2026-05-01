@@ -194,20 +194,22 @@
     width: 38vw;
     height: 50vw;
   }
-  .loves-copy {
-    grid-template-columns: 1fr;
-    gap: 1.6rem;
-    text-align: left;
-  }
-  .loves-meta {
-    align-self: start;
-    padding-top: 0;
-  }
 }
 
-@media (max-width: 600px) {
+/* Mobile — keep the desktop 3-image gallery (prev | center | next) and
+   the centered copy block below. Just scale type and image sizes. */
+@media (max-width: 768px) {
+  .loves {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+  .loves-title {
+    font-size: clamp(1.8rem, 9vw, 2.8rem);
+    margin-bottom: 0;
+  }
   .loves-gallery {
     gap: 0.6rem;
+    margin-top: 1.6rem;
   }
   .loves-thumb--side {
     width: 24vw;
@@ -216,6 +218,40 @@
   .loves-thumb--center {
     width: 44vw;
     height: 58vw;
+  }
+  .loves-quote {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .loves-copy {
+    margin-top: 2rem;
+    gap: 1.4rem;
+  }
+  .loves-place,
+  .loves-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+  }
+  .loves-nav-btn {
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+  }
+}
+
+@media (max-width: 480px) {
+  .loves-title {
+    font-size: clamp(1.5rem, 9vw, 2.2rem);
+  }
+  .loves-thumb--side {
+    width: 26vw;
+    height: 35vw;
+  }
+  .loves-thumb--center {
+    width: 46vw;
+    height: 60vw;
+  }
+  .loves-quote {
+    font-size: 0.92rem;
   }
 }
 

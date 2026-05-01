@@ -2,9 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#F4EFE6" />
+
+    <!-- Primary meta -->
+    <title>Evara — Editorial Wedding Planning in Udaipur, Jaipur &amp; Goa</title>
+    <meta
+      name="description"
+      content="Evara crafts editorial royal weddings across Udaipur, Jaipur, and Goa. Bespoke planning, design, and storytelling — one celebration at a time."
+    />
+    <!-- TODO: real domain — replace https://evaraweddings.com everywhere before deploy -->
+    <link rel="canonical" href="https://evaraweddings.com/" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="author" content="Evara Weddings" />
+    <meta
+      name="keywords"
+      content="Udaipur wedding planner, royal Indian weddings, destination wedding India, Jaipur wedding planner, Goa wedding planner, editorial wedding design"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Evara Weddings" />
+    <meta property="og:title" content="Evara — Editorial Wedding Planning in Udaipur, Jaipur &amp; Goa" />
+    <meta
+      property="og:description"
+      content="Curated, editorial wedding planning across India's most timeless landscapes."
+    />
+    <meta property="og:url" content="https://evaraweddings.com/" />
+    <meta property="og:image" content="https://evaraweddings.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Evara — Editorial Wedding Planning" />
+    <meta name="twitter:description" content="Editorial wedding planning across Udaipur, Jaipur, and Goa." />
+    <meta name="twitter:image" content="https://evaraweddings.com/og-image.jpg" />
+
+    <!-- Favicons + PWA manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Geo (helps local search) -->
+    <meta name="geo.region" content="IN-RJ" />
+    <meta name="geo.placename" content="Udaipur" />
+
     <style>
       /* Boot-time clip: while .evara-loading is on <html>, clamp the
          document to a single viewport and disable scrolling, so even if
@@ -26,6 +72,28 @@
       html.evara-loading main > section:not(.hero) {
         visibility: hidden !important;
       }
+      /* Skip-to-content link, visible only on focus. */
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        z-index: 1000;
+      }
+      .skip-link:focus {
+        left: 1rem;
+        top: 1rem;
+        width: auto;
+        height: auto;
+        padding: 0.6rem 1rem;
+        background: #00223f;
+        color: #f4efe6;
+        border-radius: 4px;
+        text-decoration: none;
+        font-family: system-ui, sans-serif;
+      }
     </style>
     <script>
       // Run BEFORE the body parses so the browser never restores a saved
@@ -35,16 +103,118 @@
       document.documentElement.classList.add('evara-loading');
       try { window.scrollTo(0, 0); } catch (e) {}
     </script>
-    <meta name="description" content="Evara — editorial wedding planning across timeless landscapes." />
-    <title>Evara — Editorial Wedding Planning</title>
+
+    <!-- LCP preloads — top hero tile + first scrub frame -->
+    <link rel="preload" as="image" href="/images/1.jpeg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/frames/wedding/f_0001.jpg" />
+
+    <!-- Fonts: preconnect + non-blocking stylesheet swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,200..900,30..100,0..1;1,9..144,200..900,30..100,0..1&family=Inter:wght@300;400;500;600&family=Italianno&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,200..900,30..100,0..1;1,9..144,200..900,30..100,0..1&family=Italianno&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,200..900,30..100,0..1;1,9..144,200..900,30..100,0..1&family=Italianno&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,200..900,30..100,0..1;1,9..144,200..900,30..100,0..1&family=Italianno&display=swap"
+      />
+    </noscript>
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Evara Weddings",
+        "url": "https://evaraweddings.com/",
+        "logo": "https://evaraweddings.com/images/evara-logo.png",
+        "email": "hello@evaraweddings.com",
+        "telephone": "+91-98765-43210",
+        "sameAs": [
+          "https://instagram.com/evaraweddings",
+          "https://pinterest.com/evaraweddings",
+          "https://facebook.com/evaraweddings",
+          "https://youtube.com/@evaraweddings"
+        ]
+      }
+    </script>
+
+    <!-- Structured data: LocalBusiness (Udaipur atelier) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://evaraweddings.com/#atelier",
+        "name": "Evara Weddings Atelier",
+        "image": "https://evaraweddings.com/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 Rajwada Marg",
+          "addressLocality": "Udaipur",
+          "addressRegion": "Rajasthan",
+          "addressCountry": "IN"
+        },
+        "telephone": "+91-98765-43210",
+        "email": "hello@evaraweddings.com",
+        "areaServed": ["Udaipur", "Jaipur", "Goa"],
+        "priceRange": "$$$",
+        "url": "https://evaraweddings.com/"
+      }
+    </script>
+
+    <!-- Structured data: FAQPage (mirrors FAQ.tsx ITEMS verbatim) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How far in advance should we book Evara’s services?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We recommend booking at least 12–18 months before your wedding date to ensure comprehensive planning and availability."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Evara accommodate destination weddings across India?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — we specialize in destination weddings across India. Our team has extensive experience planning celebrations in venues from Rajasthan palaces to Kerala backwaters, ensuring seamless coordination regardless of the location."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you offer customized wedding design packages?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. We believe every wedding is unique. Our design team works closely with you to create personalized themes, decor, and experiences that reflect your story, cultural traditions, and personal style."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you manage vendor coordination?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We have a curated network of trusted vendors across India. Our team handles all coordination — from initial selection to final execution — ensuring quality, timeline adherence, and budget management for a stress-free experience."
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

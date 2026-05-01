@@ -310,12 +310,15 @@ export default function BlackSection() {
     >
       <div className="bs-grain" aria-hidden />
 
-      <img
-        className="bs-decor bs-decor--bottom-left"
-        src="/images/decor-2.png"
-        alt=""
-        aria-hidden
-      />
+      <picture>
+        <source srcSet="/images/decor-2.avif" type="image/avif" />
+        <img
+          className="bs-decor bs-decor--bottom-left"
+          src="/images/decor-2.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
 
       <div className="bs-content">
         <div className="bs-top">

@@ -35,12 +35,15 @@ export default function FAQ() {
 
   return (
     <section className="faq" id="faq" aria-labelledby="faq-title">
-      <img
-        className="faq-paper"
-        src="/images/paper.png"
-        alt=""
-        aria-hidden
-      />
+      <picture>
+        <source srcSet="/images/paper.avif" type="image/avif" />
+        <img
+          className="faq-paper"
+          src="/images/paper.png"
+          alt=""
+          aria-hidden
+        />
+      </picture>
 
       <span className="faq-eyebrow">Curiosities &amp; clarifications</span>
 

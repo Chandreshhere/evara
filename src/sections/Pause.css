@@ -298,23 +298,79 @@
   opacity: 0.55;
 }
 
+/* Mobile — keep the desktop arrangement (centered book with headline
+   words flanking it and body paragraphs in opposite corners). Scale the
+   book + type down so everything fits the viewport. */
 @media (max-width: 768px) {
   .pause-stage {
-    padding: 2rem 1.4rem;
+    padding: 1rem 0.9rem;
+  }
+  .pause-eyebrow {
+    top: 1.2rem;
+    left: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
   }
   .pause-headline {
-    font-size: clamp(3rem, 14vw, 5rem);
-    padding-top: 6rem;
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
   }
-  .pause-line--mid {
-    margin-top: 36vh;
+  .pause-headline-word--tl {
+    left: 1rem;
+    top: clamp(7rem, 16vh, 9rem);
+  }
+  .pause-headline-word--tr {
+    right: 1rem;
+    bottom: clamp(2.5rem, 6vh, 4rem);
   }
   .pause-body {
-    right: 1.4rem;
-    max-width: 60vw;
+    font-size: clamp(0.78rem, 2.6vw, 0.95rem);
+    line-height: 1.45;
+    max-width: 44vw;
+  }
+  .pause-body--lb {
+    left: 1rem;
+    bottom: clamp(2.5rem, 6vh, 4rem);
+  }
+  .pause-body--rt {
+    right: 1rem;
+    top: clamp(7rem, 16vh, 9rem);
   }
   .pause-book {
-    width: 60vw;
-    height: 70vw;
+    width: clamp(180px, 50vw, 260px);
+    height: clamp(240px, 66vw, 360px);
+    perspective: 1600px;
+  }
+  .pause-page-caption {
+    padding: 1rem 0.8rem 0.8rem;
+  }
+  .pause-page-num {
+    font-size: 0.58rem;
+    letter-spacing: 0.26em;
+  }
+  .pause-page-title {
+    font-size: clamp(0.95rem, 3.8vw, 1.15rem);
+  }
+  .pause-page-tagline {
+    font-size: 0.72rem;
+  }
+  .pause-mark {
+    left: 1rem;
+    bottom: 1rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+@media (max-width: 480px) {
+  .pause-headline {
+    font-size: clamp(1.3rem, 8.5vw, 2rem);
+  }
+  .pause-body {
+    font-size: 0.74rem;
+    max-width: 42vw;
+  }
+  .pause-book {
+    width: clamp(160px, 52vw, 220px);
+    height: clamp(220px, 70vw, 300px);
   }
 }

@@ -101,12 +101,15 @@ export default function Process() {
         </ol>
       </div>
 
-      <img
-        ref={journeyRef}
-        className="process-journey"
-        src="/images/journey.png"
-        alt="The Evara journey"
-      />
+      <picture>
+        <source srcSet="/images/journey.avif" type="image/avif" />
+        <img
+          ref={journeyRef}
+          className="process-journey"
+          src="/images/journey.png"
+          alt="The Evara journey through royal Indian wedding planning"
+        />
+      </picture>
     </section>
   );
 }

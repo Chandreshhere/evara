@@ -421,48 +421,86 @@
   }
 }
 
+/* Mobile — preserve the horizontal polaroid stack, centered welcome
+   block, and bottom marquee. Just scale things down to fit. */
 @media (max-width: 768px) {
   .swan {
-    padding: 3rem 1.4rem 4rem;
+    min-height: 100vh;
+    padding: 0 1rem;
+    margin-top: -68vh;
   }
   .swan-polaroids {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    margin: -25vh auto 0;
+    width: fit-content;
+    flex-direction: row;
+    gap: 0;
   }
   .swan-polaroid {
-    transform: none !important;
-    padding: 0.7rem 0.7rem 2rem;
+    padding: 0.6rem 0.6rem 1.9rem;
   }
   .swan-polaroid img {
-    width: 70vw;
-    height: 80vw;
+    width: clamp(140px, 38vw, 220px);
+    height: clamp(190px, 50vw, 290px);
+  }
+  .swan-polaroid figcaption {
+    font-size: 1rem;
+    bottom: 0.3rem;
+  }
+  .swan-polaroid-slot--0 {
+    transform: rotate(-6deg) translate(28px, -8px);
+  }
+  .swan-polaroid-slot--1 {
+    transform: translate(0, 16px);
+  }
+  .swan-polaroid-slot--2 {
+    transform: rotate(5deg) translate(-22px, 0);
+  }
+  .swan-welcome-tag {
+    top: -25vh;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+  }
+  .swan-welcome {
+    top: 50%;
+    width: 92vw;
+    gap: 0.8rem;
+  }
+  .swan-welcome-headline {
+    font-size: clamp(1.8rem, 8vw, 3rem);
+  }
+  .swan-welcome-body {
+    font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+    line-height: 1.5;
+  }
+  .swan-marquee__item {
+    width: clamp(120px, 36vw, 180px);
+    height: clamp(80px, 24vw, 120px);
   }
   .swan-note--tl,
   .swan-note--tr,
   .swan-note--bl {
-    position: static;
-    max-width: none;
-    text-align: center;
-    margin: 1.6rem auto;
-  }
-  .swan-title-caps {
-    font-size: clamp(3rem, 14vw, 5rem);
-    margin-left: 0;
-    text-align: center;
-  }
-  .swan-title-script {
-    font-size: clamp(4.5rem, 22vw, 9rem);
-    margin-left: 0;
-    margin-top: -1.5rem;
-    text-align: center;
-  }
-  .swan-feather {
     display: none;
   }
-  .swan-scroll {
-    position: static;
-    justify-content: center;
-    margin-top: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .swan {
+    margin-top: -62vh;
+  }
+  .swan-polaroids {
+    margin: -22vh auto 0;
+  }
+  .swan-polaroid img {
+    width: clamp(125px, 38vw, 180px);
+    height: clamp(170px, 50vw, 240px);
+  }
+  .swan-welcome {
+    top: 52%;
+  }
+  .swan-welcome-headline {
+    font-size: clamp(1.5rem, 8.5vw, 2.4rem);
+  }
+  .swan-welcome-body {
+    font-size: 0.88rem;
   }
 }

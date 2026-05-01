@@ -3,7 +3,10 @@
   width: 100%;
   min-height: 100vh;
   height: 100vh;
-  background: var(--bone) url('/images/book-bg.png') center 95% / 110% auto no-repeat;
+  background: var(--bone) image-set(
+      url('/images/book-bg.avif') type('image/avif'),
+      url('/images/book-bg.png') type('image/png')
+    ) center 95% / 110% auto no-repeat;
   color: var(--brand-navy);
   /* Sit above Process (z:40) so the journey image, which is absolutely
      positioned inside Process and bleeds outside its bounds, never paints
@@ -36,7 +39,7 @@
 .book-stars {
   position: absolute;
   right: clamp(2rem, 5vw, 5rem);
-  top: 50%;
+  top: 80%;
   transform: translateY(-50%);
   width: clamp(140px, 16vw, 260px);
   height: auto;
@@ -115,10 +118,10 @@
 /* ---- Envelope (static image) ---- */
 .envelope {
   position: relative;
-  width: min(1240px, 100vw);
+  width: min(560px, 55vw);
   aspect-ratio: 2778 / 3929;
-  margin: clamp(-8rem, -8vh, -4rem) auto 0;
-  max-height: 110vh;
+  margin: clamp(2rem, 6vh, 5rem) auto 0;
+  max-height: 60vh;
   user-select: none;
   filter: drop-shadow(0 40px 90px rgba(0, 0, 0, 0.45))
     drop-shadow(0 14px 28px rgba(0, 0, 0, 0.24));
@@ -167,8 +170,8 @@
    the visual position of the letter peeking out of the photograph. */
 .envelope-letter {
   position: absolute;
-  left: 22%;
-  right: 22%;
+  left: 8%;
+  right: 8%;
   top: 44%;
   bottom: 16%;
   display: flex;
@@ -185,18 +188,20 @@
 }
 .envelope-letter .book-headline {
   font-size: clamp(2.1rem, 4.3vw, 4.3rem);
-  margin: clamp(1.5rem, 4vh, 3rem) 0 0;
+  margin: clamp(5rem, 11vh, 8rem) 0 0;
+  color: var(--bone);
 }
 .envelope-letter .book-headline-script {
   font-size: 1.2em;
 }
 .envelope-letter .book-body {
-  font-size: clamp(1.1rem, 1.4vw, 1.45rem);
-  line-height: 1.5;
-  max-width: 30ch;
+  font-size: clamp(0.9rem, 1.05vw, 1.1rem);
+  line-height: 1.85;
+  letter-spacing: 0.015em;
+  max-width: 60ch;
   color: var(--bone);
   opacity: 1;
-  margin-top: clamp(2rem, 5vh, 4rem);
+  margin-top: clamp(6rem, 13vh, 10rem);
 }
 .envelope-letter .book-cta {
   align-self: center;
@@ -205,15 +210,78 @@
   letter-spacing: 0.22em;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
+  .book {
+    height: auto;
+    min-height: 0;
+    padding: 1rem 1rem 1.5rem;
+    background-size: 220% auto;
+    background-position: center 60%;
+  }
+  .envelope {
+    width: min(380px, 88vw);
+    max-height: none;
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    margin: 0 auto;
+    filter: none;
+  }
   .envelope-letter {
-    left: 16%;
-    right: 16%;
-    top: 30%;
-    bottom: 26%;
+    left: 10%;
+    right: 10%;
+    top: 44%;
+    bottom: 16%;
+    gap: 0.5rem;
+    padding: 0.4rem;
+  }
+  .envelope-letter .book-headline {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+    margin: clamp(2.4rem, 7vh, 4rem) 0 0;
   }
   .envelope-letter .book-body {
-    display: none;
+    font-size: 0.74rem;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    margin-top: clamp(2.4rem, 7vh, 4rem);
+    display: block;
+  }
+  .book-stars {
+    width: clamp(90px, 26vw, 150px);
+    top: auto;
+    bottom: 6%;
+    right: 1rem;
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    background-size: 250% auto;
+  }
+  .envelope {
+    width: min(340px, 92vw);
+    max-height: none;
+  }
+  .envelope-letter {
+    left: 11%;
+    right: 11%;
+    top: 42%;
+    bottom: 18%;
+  }
+  .envelope-letter .book-headline {
+    font-size: clamp(1.2rem, 6.5vw, 1.7rem);
+    margin: clamp(1.8rem, 6vh, 3rem) 0 0;
+  }
+  .envelope-letter .book-body {
+    font-size: 0.7rem;
+    line-height: 1.5;
+    margin-top: clamp(1.8rem, 6vh, 3rem);
+  }
+  .book-stars {
+    width: clamp(70px, 24vw, 110px);
+    bottom: 4%;
   }
 }
 

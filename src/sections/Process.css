@@ -163,3 +163,72 @@
   will-change: transform;
 }
 
+/* Mobile — keep the same layout pattern (eyebrow top, headline +
+   numbered steps stacked left, journey graphic floating top-right).
+   Scale type and journey graphic so the steps remain comfortably
+   readable inside the column. */
+@media (max-width: 768px) {
+  .process {
+    min-height: auto;
+    padding: 4rem 1.2rem 2rem;
+    overflow-x: clip;
+  }
+  .process-eyebrow {
+    top: 1.2rem;
+    left: 1.2rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+  }
+  .process-content {
+    width: 100%;
+    margin: 4rem 0 0;
+    position: relative;
+    z-index: 4;
+  }
+  .process-headline {
+    font-size: clamp(2.2rem, 11vw, 3.6rem);
+    margin-bottom: 2.4rem;
+    white-space: normal;
+  }
+  .process-step {
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.9rem;
+  }
+  .process-step-num {
+    font-size: clamp(1.8rem, 8vw, 2.6rem);
+    padding-right: 0.3rem;
+  }
+  .process-step-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+  .process-step-text {
+    font-size: clamp(0.9rem, 3.2vw, 1rem);
+    line-height: 1.5;
+  }
+  .process-journey {
+    top: 8rem;
+    right: -30vw;
+    width: 110vw;
+    opacity: 0.55;
+  }
+  .process::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-headline {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+  .process-step {
+    grid-template-columns: 3rem 1fr;
+    gap: 0.7rem;
+  }
+  .process-step-num {
+    font-size: 1.7rem;
+  }
+  .process-step-text {
+    font-size: 0.88rem;
+  }
+}

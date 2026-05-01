@@ -317,83 +317,101 @@
   }
 }
 
+/* Mobile — preserve the 3-column desktop layout with the same takeover
+   animation. Just scale tiles + text down to fit the narrow viewport. */
 @media (max-width: 768px) {
   .hero {
-    height: auto;
+    height: 100vh;
     min-height: 100vh;
-    padding: 4rem 0 2rem;
+    padding: 0;
   }
   .hero-grid {
-    height: auto;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
-    gap: 0.6rem;
-    padding: 0 var(--gutter);
+    grid-template-columns: 1fr 1.3fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.25rem;
+    padding: 0 0.25rem;
   }
   .hero-tile {
-    max-height: none;
+    max-height: 48vh;
   }
 
-  .hero-tile--top-left {
-    grid-column: 1;
-    grid-row: 1;
-    width: 100%;
+  /* Side tiles fill their grid cells AND bleed slightly past the outer
+     gutter so they feel anchored to the page edges, not boxed inside. */
+  .hero-tile--top-left,
+  .hero-tile--bottom-left {
+    width: calc(100% + 1.5rem);
     max-width: none;
-    aspect-ratio: 3 / 4;
+    justify-self: start;
     margin: 0;
+    margin-left: -1.5rem;
   }
+  .hero-tile--top-right,
+  .hero-tile--bottom-right {
+    width: calc(100% + 1.5rem);
+    max-width: none;
+    justify-self: end;
+    margin: 0;
+    margin-right: -1.5rem;
+  }
+  .hero-tile--top-left,
   .hero-tile--top-right {
-    grid-column: 2;
-    grid-row: 1;
-    width: 100%;
-    max-width: none;
+    margin-top: 0.5rem;
     aspect-ratio: 3 / 4;
-    margin: 0;
   }
+  .hero-tile--bottom-left,
+  .hero-tile--bottom-right {
+    margin-bottom: -2rem;
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Center column tiles sit dead-center inside the wider middle cell. */
   .hero-tile--top-center {
-    grid-column: 1 / -1;
-    grid-row: 2;
     width: 100%;
     max-width: none;
-    aspect-ratio: 16 / 9;
+    justify-self: stretch;
     margin: 0;
+    aspect-ratio: 3 / 4;
+  }
+  .hero-tile--top-center img {
+    transform: scale(1.05);
+    object-position: center 38%;
+  }
+  .hero-tile--bottom-center {
+    width: 100%;
+    max-width: none;
+    max-height: 48vh;
+    justify-self: stretch;
+    margin: 0 0 -3rem;
+    aspect-ratio: 720 / 768;
   }
 
   .hero-center {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    padding: 2.5rem 0.5rem;
+    transform: translateY(-1.5rem);
+    padding: 0 0.5rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    margin-bottom: 1rem;
   }
   .hero-headline {
-    font-size: clamp(1.6rem, 7vw, 2.4rem);
+    font-size: clamp(1.6rem, 8vw, 2.6rem);
+    line-height: 1.08;
   }
+  .hero-dot {
+    margin-bottom: 1.4rem;
+  }
+}
 
-  .hero-tile--bottom-left {
-    grid-column: 1;
-    grid-row: 4;
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 1;
-    margin: 0;
+@media (max-width: 480px) {
+  .hero-grid {
+    gap: 0.3rem;
+    padding: 0 0.4rem;
   }
-  .hero-tile--bottom-right {
-    grid-column: 2;
-    grid-row: 4;
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 1;
-    margin: 0;
+  .hero-eyebrow {
+    font-size: 0.55rem;
   }
-  .hero-tile--bottom-center {
-    grid-column: 1 / -1;
-    grid-row: 5;
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 16 / 8;
-    margin: 0;
-  }
-
-  .hero-scroll {
-    display: none;
+  .hero-headline {
+    font-size: clamp(1.4rem, 8.5vw, 2.2rem);
   }
 }

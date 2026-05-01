@@ -175,7 +175,10 @@ export default function Pause() {
   return (
     <section ref={sectionRef} className="pause" id="splendor">
       <div className="pause-stage">
-        <img className="pause-paper" src="/images/paper.png" alt="" aria-hidden />
+        <picture>
+          <source srcSet="/images/paper.avif" type="image/avif" />
+          <img className="pause-paper" src="/images/paper.png" alt="" aria-hidden />
+        </picture>
 
         <span className="pause-eyebrow">Begin your royal journey</span>
 
