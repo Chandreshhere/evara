@@ -310,15 +310,6 @@ export default function Contact() {
       <section className="contact-manifesto">
         <div className="container contact-manifesto__grid">
           <div className="contact-manifesto__col">
-            <span className="contact-manifesto__eyebrow">A short note</span>
-            <h2 className="contact-manifesto__copy">
-              {manifesto.split(' ').map((w, i) => (
-                <span className="contact-manifesto__word" key={i}>
-                  {w}
-                  {i < manifesto.split(' ').length - 1 ? ' ' : ''}
-                </span>
-              ))}
-            </h2>
             <header className="contact-cards-head">
               <span className="contact-cards-eyebrow">Find us</span>
               <h3 className="contact-cards-title">
@@ -327,6 +318,17 @@ export default function Contact() {
                 to <em>arrive</em>
               </h3>
             </header>
+            <div>
+              <span className="contact-manifesto__eyebrow">A short note</span>
+              <h2 className="contact-manifesto__copy">
+                {manifesto.split(' ').map((w, i) => (
+                  <span className="contact-manifesto__word" key={i}>
+                    {w}
+                    {i < manifesto.split(' ').length - 1 ? ' ' : ''}
+                  </span>
+                ))}
+              </h2>
+            </div>
           </div>
 
           <div className="contact-cards">

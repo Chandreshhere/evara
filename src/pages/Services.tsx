@@ -125,55 +125,16 @@ export default function Services() {
         delay: 1.1,
       });
 
-      // Mount-time fly-in for the four hero tiles — they ease into
-      // their resting positions from the corners.
-      gsap.from('.svc-hero-tile--tl', {
-        xPercent: -60,
-        yPercent: -40,
-        opacity: 0,
-        scale: 0.92,
-        duration: 1.4,
-        ease: 'expo.out',
-        delay: 0.2,
-      });
-      gsap.from('.svc-hero-tile--tr', {
-        xPercent: 60,
-        yPercent: -40,
-        opacity: 0,
-        scale: 0.92,
-        duration: 1.4,
-        ease: 'expo.out',
-        delay: 0.25,
-      });
-      gsap.from('.svc-hero-tile--bl', {
-        xPercent: -60,
-        yPercent: 40,
-        opacity: 0,
-        scale: 0.92,
-        duration: 1.4,
-        ease: 'expo.out',
-        delay: 0.3,
-      });
-      gsap.from('.svc-hero-tile--br', {
-        xPercent: 60,
-        yPercent: 40,
-        opacity: 0,
-        scale: 0.92,
-        duration: 1.4,
-        ease: 'expo.out',
-        delay: 0.35,
-      });
-
-      // Scroll takeover — tiles fly OUT to their respective corners,
-      // headline lifts + blurs. Same feel as the Home page hero.
+      // Scroll takeover — tiles fly OUT to their corners and headline
+      // lifts + blurs as the hero scrolls past. NOT pinned: the showcase
+      // section below rises into view at the same time, which is what
+      // gives the "section coming up while hero blurs" feel.
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root,
           start: 'top top',
-          end: '+=80%',
+          end: 'bottom top',
           scrub: 1,
-          pin: true,
-          anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
@@ -231,8 +192,8 @@ export default function Services() {
       const mm = gsap.matchMedia();
 
       // ---- Rise-up entrance ----
-      // Slide the showcase content up from below as the section enters
-      // the viewport (after the hero pin releases). Animates only the
+      // Slide the showcase content up from below WHILE the hero is
+      // still scrolling and its text is blurring out. Animates only the
       // inner rail + track so the section's own bounding box stays
       // clean for the horizontal pin trigger that fires next.
       const riseTrigger = {
@@ -244,12 +205,12 @@ export default function Services() {
       };
       gsap.fromTo(
         '.svc-showcase-rail',
-        { yPercent: 80, opacity: 0 },
+        { yPercent: 100, opacity: 0 },
         { yPercent: 0, opacity: 1, ease: 'none', scrollTrigger: riseTrigger },
       );
       gsap.fromTo(
         track,
-        { yPercent: 35, opacity: 0.4, scale: 0.96 },
+        { yPercent: 50, opacity: 0.3, scale: 0.94 },
         {
           yPercent: 0,
           opacity: 1,
